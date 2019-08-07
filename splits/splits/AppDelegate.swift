@@ -12,9 +12,9 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let home = HomeSplitViewController()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         setUpSplitView()
         return true
     }
@@ -45,7 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         guard let window = window else { return }
         window.backgroundColor = UIColor.lightGray
-        window.rootViewController = HomeSplitViewController(with: self)
+        home.configure()
+        window.rootViewController = home
         window.makeKeyAndVisible()
     }
 }

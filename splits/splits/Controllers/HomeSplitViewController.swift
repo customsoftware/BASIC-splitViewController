@@ -13,8 +13,7 @@ class HomeSplitViewController: UISplitViewController {
     private let master = RootTableViewController()
     private let detail = DetailViewController()
     
-    convenience init(with app: AppDelegate) {
-        self.init()
+    func configure() {
         let masterNav = UINavigationController(rootViewController: master)
         let detailNav = UINavigationController(rootViewController: detail)
         viewControllers = [masterNav, detailNav]

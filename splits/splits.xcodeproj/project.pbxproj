@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		90CF2B4022FB01CB0069802F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B3F22FB01CB0069802F /* AppDelegate.swift */; };
-		90CF2B4222FB01CB0069802F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B4122FB01CB0069802F /* ViewController.swift */; };
-		90CF2B4522FB01CB0069802F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90CF2B4322FB01CB0069802F /* Main.storyboard */; };
 		90CF2B4722FB01CD0069802F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90CF2B4622FB01CD0069802F /* Assets.xcassets */; };
 		90CF2B4A22FB01CD0069802F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90CF2B4822FB01CD0069802F /* LaunchScreen.storyboard */; };
 		90CF2B5522FB01CD0069802F /* splitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B5422FB01CD0069802F /* splitsTests.swift */; };
+		90CF2B6722FB03940069802F /* RootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6622FB03940069802F /* RootTableViewController.swift */; };
+		90CF2B6922FB03CB0069802F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6822FB03CB0069802F /* DetailViewController.swift */; };
+		90CF2B6B22FB03F30069802F /* HomeSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6A22FB03F30069802F /* HomeSplitViewController.swift */; };
+		90CF2B6E22FB06230069802F /* ViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6D22FB06230069802F /* ViewProtocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,14 +30,16 @@
 /* Begin PBXFileReference section */
 		90CF2B3C22FB01CB0069802F /* splits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = splits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90CF2B3F22FB01CB0069802F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		90CF2B4122FB01CB0069802F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		90CF2B4422FB01CB0069802F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90CF2B4622FB01CD0069802F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90CF2B4922FB01CD0069802F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90CF2B4B22FB01CD0069802F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90CF2B5022FB01CD0069802F /* splitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = splitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		90CF2B5422FB01CD0069802F /* splitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splitsTests.swift; sourceTree = "<group>"; };
 		90CF2B5622FB01CD0069802F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90CF2B6622FB03940069802F /* RootTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTableViewController.swift; sourceTree = "<group>"; };
+		90CF2B6822FB03CB0069802F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		90CF2B6A22FB03F30069802F /* HomeSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSplitViewController.swift; sourceTree = "<group>"; };
+		90CF2B6D22FB06230069802F /* ViewProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +81,9 @@
 		90CF2B3E22FB01CB0069802F /* splits */ = {
 			isa = PBXGroup;
 			children = (
+				90CF2B6C22FB06080069802F /* Components */,
+				90CF2B5F22FB02520069802F /* Controllers */,
 				90CF2B3F22FB01CB0069802F /* AppDelegate.swift */,
-				90CF2B4122FB01CB0069802F /* ViewController.swift */,
-				90CF2B4322FB01CB0069802F /* Main.storyboard */,
 				90CF2B4622FB01CD0069802F /* Assets.xcassets */,
 				90CF2B4822FB01CD0069802F /* LaunchScreen.storyboard */,
 				90CF2B4B22FB01CD0069802F /* Info.plist */,
@@ -94,6 +98,24 @@
 				90CF2B5622FB01CD0069802F /* Info.plist */,
 			);
 			path = splitsTests;
+			sourceTree = "<group>";
+		};
+		90CF2B5F22FB02520069802F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				90CF2B6622FB03940069802F /* RootTableViewController.swift */,
+				90CF2B6822FB03CB0069802F /* DetailViewController.swift */,
+				90CF2B6A22FB03F30069802F /* HomeSplitViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		90CF2B6C22FB06080069802F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				90CF2B6D22FB06230069802F /* ViewProtocols.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,7 +201,6 @@
 			files = (
 				90CF2B4A22FB01CD0069802F /* LaunchScreen.storyboard in Resources */,
 				90CF2B4722FB01CD0069802F /* Assets.xcassets in Resources */,
-				90CF2B4522FB01CB0069802F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,8 +218,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90CF2B4222FB01CB0069802F /* ViewController.swift in Sources */,
+				90CF2B6B22FB03F30069802F /* HomeSplitViewController.swift in Sources */,
+				90CF2B6922FB03CB0069802F /* DetailViewController.swift in Sources */,
+				90CF2B6E22FB06230069802F /* ViewProtocols.swift in Sources */,
 				90CF2B4022FB01CB0069802F /* AppDelegate.swift in Sources */,
+				90CF2B6722FB03940069802F /* RootTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,14 +245,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		90CF2B4322FB01CB0069802F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				90CF2B4422FB01CB0069802F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		90CF2B4822FB01CD0069802F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

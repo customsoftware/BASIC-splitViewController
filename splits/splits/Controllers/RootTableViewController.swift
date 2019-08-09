@@ -14,9 +14,14 @@ enum TestDetails: CaseIterable {
     case exampleThree
 }
 
+enum TestSegues: String {
+    case testSegueID
+}
+
 
 class RootTableViewController: UITableViewController, ProgramBuildable {
     let cellID = "DemoCellID"
+    let segueID = "testSegueID"
     
     func createControls() {
         
@@ -27,7 +32,7 @@ class RootTableViewController: UITableViewController, ProgramBuildable {
         navigationItem.title = "Test Master"
         tableView.register(DemoCell.self, forCellReuseIdentifier: cellID)
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return TestDetails.allCases.count
@@ -42,16 +47,12 @@ class RootTableViewController: UITableViewController, ProgramBuildable {
         return cell
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let passedEnum = TestDetails.allCases[indexPath.row]
+        guard let detailNav = splitViewController?.viewControllers.last as? UINavigationController,
+            let detailView = detailNav.viewControllers.first as? DetailViewController else { return }
+        detailView.controllingEnum = passedEnum
     }
-    */
-
 }
 
 class DemoCell: UITableViewCell {

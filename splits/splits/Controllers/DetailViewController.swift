@@ -13,9 +13,42 @@ class DetailViewController: UIViewController, ProgramBuildable {
         
     }
     
+    var visibleViewController: UIViewController?
+    
+    var controllingEnum: TestDetails? {
+        didSet {
+            guard let controllingEnum = controllingEnum else { return }
+            
+            if let navC = navigationController,
+                navC.viewControllers.count > 1 {
+                
+                navC.popViewController(animated: false)
+                
+            }
+            
+            switch controllingEnum {
+            case .exampleOne:
+                visibleViewController = TestVCOne()
+                
+            case .exampleTwo:
+                visibleViewController = TestVCTwo()
+                
+            case .exampleThree:
+                visibleViewController = TestVCThree()
+                
+            }
+            
+            if let navC = navigationController,
+                let vc = visibleViewController {
+                navC.pushViewController(vc, animated: false)
+            }
+        }
+    }
+    
     override func loadView() {
         super.loadView()
-        
+        view.backgroundColor = .blue
+        navigationItem.title = "Details"
     }
     
     override func viewDidLoad() {
@@ -24,15 +57,20 @@ class DetailViewController: UIViewController, ProgramBuildable {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
-    */
-
+    
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if traitCollection.horizontalSizeClass == .compact {
+            print("We're compact")
+            // Show master view
+            navigationController?.dismiss(animated: true, completion: nil)
+        } else {
+            print("were normal")
+            splitViewController?.preferredDisplayMode = .automatic
+        }
+    }
 }

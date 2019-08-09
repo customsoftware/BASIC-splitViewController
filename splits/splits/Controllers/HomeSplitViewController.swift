@@ -12,17 +12,20 @@ class HomeSplitViewController: UISplitViewController {
     
     private let master = RootTableViewController()
     private let detail = DetailViewController()
+    private var masterNav = UINavigationController()
     
     func configure() {
-        let masterNav = UINavigationController(rootViewController: master)
+        masterNav = UINavigationController(rootViewController: master)
         let detailNav = UINavigationController(rootViewController: detail)
         viewControllers = [masterNav, detailNav]
         delegate = self
-        preferredDisplayMode = .automatic
+        preferredDisplayMode = .allVisible
         if let nc = viewControllers.last as? UINavigationController {
             nc.topViewController?.navigationItem.leftBarButtonItem = displayModeButtonItem
         }
     }
+    
+    
 }
 
 extension HomeSplitViewController: UISplitViewControllerDelegate {

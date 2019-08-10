@@ -10,7 +10,10 @@ import UIKit
 
 class HomeSplitViewController: UISplitViewController {
     
-    lazy var detail: DetailViewController = StaticNavigator.shared.detail
+    lazy var detail: DetailViewController = {
+        let retValue = detailNav.viewControllers.last as! DetailViewController
+        return retValue
+    }()
     let detailNav = StaticNavigator.shared
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {

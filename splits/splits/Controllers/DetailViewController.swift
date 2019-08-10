@@ -19,10 +19,6 @@ class DetailViewController: UIViewController {
         super.viewWillAppear(animated)
         stateChanged()
     }
-    
-    deinit {
-        print("I'm gone - Detail view")
-    }
 }
 
 extension DetailViewController: ProgramBuildable {

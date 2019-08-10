@@ -17,8 +17,6 @@ enum TestDetails: CaseIterable {
 class RootTableViewController: UITableViewController {
     let cellID = "DemoCellID"
    
-    var keepAliveDelegate: ProgramBuildable?
-    
     override func loadView() {
         super.loadView()
         navigationItem.title = "Test Master"
@@ -39,11 +37,7 @@ class RootTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let passedEnum = TestDetails.allCases[indexPath.row]
         CoreServices.shared.setActiveDetail(passedEnum)
-    
-//        guard let detail = keepAliveDelegate as? DetailViewController,
-//            let detailNav = detail.navigationController else { return }
-//        
-//        splitViewController?.showDetailViewController(detailNav, sender: nil)
+        splitViewController?.showDetailViewController(StaticNavigator.shared, sender: nil)
     }
 }
 

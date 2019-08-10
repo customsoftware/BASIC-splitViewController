@@ -12,7 +12,7 @@ protocol ProgramBuildable {
     func createControls()
 }
 
-protocol Responder {
+protocol Responder: UIViewController {
     func stateChanged()
     //    func updateState(with type: StateTypes, and value: Any)
 }

@@ -30,15 +30,17 @@ extension DetailViewController: ProgramBuildable {
 }
 
 extension DetailViewController: Responder {
+    
     func stateChanged() {
+        
         guard let newState = CoreServices.shared.activeDetail else {
             // There is no state so remove all sub-views
-            drailChildren()
+            drainChildren()
             return
         }
         
         if children.count > 0 {
-            drailChildren()
+            drainChildren()
         }
         
         let newVC = DetailFactory.build(for: newState)
@@ -48,8 +50,9 @@ extension DetailViewController: Responder {
         navigationItem.title = getTitle(newState)
     }
     
-    private func drailChildren() {
+    private func drainChildren() {
         children.forEach({
+            guard $0.self is DetailViewBase else { return }
             $0.willMove(toParent: nil)
             $0.view.removeFromSuperview()
             $0.removeFromParent()

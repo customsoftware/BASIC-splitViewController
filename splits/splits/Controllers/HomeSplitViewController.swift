@@ -10,37 +10,9 @@ import UIKit
 
 class HomeSplitViewController: UISplitViewController {
     
-//    private var master: RootTableViewController!
-//    private(set) var detail: DetailViewController!
-//    private var masterNav: UINavigationController!
-//    private(set) var detailNav: UINavigationController!
-    
-//    func configure() {
-//        guard let mNav = viewControllers.first as? UINavigationController?,
-//            let mVC = mNav?.topViewController as? RootTableViewController?,
-//            let dNav = viewControllers.last as? UINavigationController?,
-//            let dVC = dNav?.topViewController as? DetailViewController? else { return }
-//
-//        master = mVC
-//        detail = dVC
-//        masterNav = mNav
-//        detailNav = dNav
-//
-//        master?.keepAliveDelegate = detail
-////        masterNav = UINavigationController(rootViewController: master)
-////        detailNav = UINavigationController(rootViewController: detail)
-////
-////        master.keepAliveDelegate = detail
-//
-//        detail?.navigationItem.leftItemsSupplementBackButton = true
-//        detail?.navigationItem.leftBarButtonItem = displayModeButtonItem
-//
-////        viewControllers = [masterNav, detailNav]
-////        delegate = self
-//        preferredDisplayMode = .allVisible
-//        CoreServices.shared.registerDelegate(detail)
-//    }
-    
+    lazy var detail: DetailViewController = StaticNavigator.shared.detail
+    let detailNav = StaticNavigator.shared
+
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         // If we have just one view controller and that controller is master...
         guard newCollection.horizontalSizeClass == .regular,
@@ -60,23 +32,46 @@ class HomeSplitViewController: UISplitViewController {
 //        print(navC.viewControllers)
     }
 }
-//
-//extension HomeSplitViewController: UISplitViewControllerDelegate {
-//    func splitViewController(_ splitViewController: UISplitViewController,
-//                             collapseSecondary secondaryViewController:UIViewController,
-//                             onto primaryViewController:UIViewController) -> Bool {
-//
-//        var retValue = true
-//
-//        if let navC = secondaryViewController as? UINavigationController,
-//            let vc = navC.visibleViewController,
-//            vc.self is DetailViewBase {
-//
-//            retValue = false
-//        } else if splitViewController.viewControllers.count == 1 {
-//            retValue = true
-//        }
-//
-//        return retValue
-//    }
-//}
+
+fileprivate extension HomeSplitViewController {
+    func primaryNavigation(_ split: UISplitViewController) -> UINavigationController {
+        guard let nav = split.viewControllers.first as? UINavigationController else {
+            fatalError("The primary is always a nav controller")
+        }
+        
+        return nav
+    }
+    
+    func activeDetailView(_ split: UISplitViewController) -> DetailViewBase? {
+        var retValue: DetailViewBase?
+        
+        guard let navigation = split.viewControllers.last as? UINavigationController,
+            let detail = navigation.topViewController as? DetailViewController,
+            navigation.viewControllers.count > 0,
+            let activeDetail = detail.children.last as? DetailViewBase? else { return retValue }
+        
+        retValue = activeDetail
+        
+        return retValue
+    }
+}
+
+extension HomeSplitViewController: UISplitViewControllerDelegate {
+    func splitViewController(_ splitViewController: UISplitViewController,
+                             collapseSecondary secondaryViewController:UIViewController,
+                             onto primaryViewController:UIViewController) -> Bool {
+
+        var retValue = false
+        let primaryNav = primaryNavigation(splitViewController)
+        if let secondaryNav = secondaryViewController as? UINavigationController {
+            
+            let activeDetail = activeDetailView(splitViewController)
+            print("whoaH")
+            
+        } else {
+            retValue = true
+        }
+        
+        return retValue
+    }
+}

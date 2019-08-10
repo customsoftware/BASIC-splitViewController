@@ -33,10 +33,6 @@ class TestVCThree: DetailViewBase {
 }
 
 class DetailViewBase: UIViewController {
-    deinit {
-        print("I'm gone... detail content")
-    }
-    
 //    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
 //        guard fromInterfaceOrientation == .portrait || fromInterfaceOrientation == .portraitUpsideDown,
 //            UIDevice.current.userInterfaceIdiom == .phone,

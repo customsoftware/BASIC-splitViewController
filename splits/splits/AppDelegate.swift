@@ -41,20 +41,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func setUpSplitView() {
-        guard let splitViewController = window?.rootViewController as? UISplitViewController,
-            let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
-            let masterViewController = leftNavController.topViewController as? RootTableViewController,
-            let rightNavController = splitViewController.viewControllers.last as? UINavigationController,
-            let detailViewController = rightNavController.topViewController as? DetailViewController
-            else { fatalError() }
+        let detailNav = StaticNavigator.shared
+        guard let splitViewController = window?.rootViewController as? HomeSplitViewController,
+            let mNav = splitViewController.viewControllers.first as? UINavigationController,
+            let detail = detailNav.viewControllers.first as? DetailViewController else { return }
+        
+        splitViewController.viewControllers = [mNav, detailNav]
+        splitViewController.preferredDisplayMode = .allVisible
         
         CoreServices.shared.setActiveDetail(TestDetails.exampleTwo)
-        CoreServices.shared.registerDelegate(detailViewController)
+        CoreServices.shared.registerDelegate(detail)
         
-        masterViewController.keepAliveDelegate = detailViewController
-        
-        detailViewController.navigationItem.leftItemsSupplementBackButton = true
-        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+        detail.navigationItem.leftItemsSupplementBackButton = true
+        detail.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
     }
 }
 

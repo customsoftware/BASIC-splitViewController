@@ -9,9 +9,14 @@
 import UIKit
 
 class DemoCell: UITableViewCell {
+    
+
     var controllingEnum: TestDetails? {
         didSet{
             guard let controllingEnum = controllingEnum else { return }
+            
+            selectionStyle = .none
+            
             switch controllingEnum {
             case .exampleOne:
                 textLabel?.text = "The First Choice"

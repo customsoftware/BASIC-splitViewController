@@ -14,17 +14,10 @@ enum TestDetails: CaseIterable {
     case exampleThree
 }
 
-enum TestSegues: String {
-    case testSegueID
-}
-
-class RootTableViewController: UITableViewController, ProgramBuildable {
+class RootTableViewController: UITableViewController {
     let cellID = "DemoCellID"
-    let segueID = "testSegueID"
-    
-    func createControls() {
-        
-    }
+   
+    var keepAliveDelegate: ProgramBuildable?
     
     override func loadView() {
         super.loadView()
@@ -42,12 +35,22 @@ class RootTableViewController: UITableViewController, ProgramBuildable {
         cell.controllingEnum = TestDetails.allCases[indexPath.row]
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let passedEnum = TestDetails.allCases[indexPath.row]
         CoreServices.shared.setActiveDetail(passedEnum)
-        guard let split = splitViewController as? HomeSplitViewController else { return }
-        split.showDetailViewController(split.detailNav, sender: nil)
-        tableView.deselectRow(at: indexPath, animated: true)
+    
+//        guard let detail = keepAliveDelegate as? DetailViewController,
+//            let detailNav = detail.navigationController else { return }
+//        
+//        splitViewController?.showDetailViewController(detailNav, sender: nil)
+    }
+}
+
+fileprivate extension RootTableViewController {
+    func pushToSubTable() {
+        CoreServices.shared.setActiveDetail(nil)
+        let newVC = BranchTableViewController()
+        navigationController?.pushViewController(newVC, animated: true)
     }
 }

@@ -12,10 +12,6 @@ protocol ProgramBuildable {
     func createControls()
 }
 
-protocol NetworkAvailabilityWatcher {
-    func networkStatusChangedTo(_ status: NetworkStatus)
-}
-
 protocol Responder {
     func stateChanged()
     //    func updateState(with type: StateTypes, and value: Any)
@@ -23,12 +19,6 @@ protocol Responder {
 
 enum StateTypes {
     case detailChanged
-}
-
-enum NetworkStatus {
-    case unavailable
-    case wifi
-    case available
 }
 
 struct DetailFactory {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TestVCOne: UIViewController {
+class TestVCOne: DetailViewBase {
     override func loadView() {
         super.loadView()
         view.backgroundColor = .lightGray
@@ -16,7 +16,7 @@ class TestVCOne: UIViewController {
     }
 }
 
-class TestVCTwo: UIViewController {
+class TestVCTwo: DetailViewBase {
     override func loadView() {
         super.loadView()
         view.backgroundColor = .darkGray
@@ -24,7 +24,7 @@ class TestVCTwo: UIViewController {
     }
 }
 
-class TestVCThree: UIViewController {
+class TestVCThree: DetailViewBase {
     override func loadView() {
         super.loadView()
         view.backgroundColor = .white
@@ -32,3 +32,21 @@ class TestVCThree: UIViewController {
     }
 }
 
+class DetailViewBase: UIViewController {
+//    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+//        guard fromInterfaceOrientation == .portrait || fromInterfaceOrientation == .portraitUpsideDown,
+//            UIDevice.current.userInterfaceIdiom == .phone,
+//            let splitView = splitViewController as? HomeSplitViewController else { return }
+//
+//        var doSetBack = false
+//        if  traitCollection.horizontalSizeClass == .regular ||
+//            traitCollection.verticalSizeClass == .regular {
+//            
+//            doSetBack = true
+//        }
+//        
+//        if doSetBack {
+//            splitView.setBackButton()
+//        }
+//    }
+}

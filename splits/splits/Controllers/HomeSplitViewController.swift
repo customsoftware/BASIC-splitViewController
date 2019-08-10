@@ -13,25 +13,38 @@ class HomeSplitViewController: UISplitViewController {
     private let master = RootTableViewController()
     private let detail = DetailViewController()
     private var masterNav = UINavigationController()
+    private(set) var detailNav = UINavigationController()
     
     func configure() {
         masterNav = UINavigationController(rootViewController: master)
-        let detailNav = UINavigationController(rootViewController: detail)
+        detailNav = UINavigationController(rootViewController: detail)
+        
+        detail.navigationItem.leftItemsSupplementBackButton = true
+        detail.navigationItem.leftBarButtonItem = displayModeButtonItem
+        
         viewControllers = [masterNav, detailNav]
         delegate = self
         preferredDisplayMode = .allVisible
-        if let nc = viewControllers.last as? UINavigationController {
-            nc.topViewController?.navigationItem.leftBarButtonItem = displayModeButtonItem
-        }
+        CoreServices.shared.registerDelegate(detail)
     }
-    
-    
 }
 
 extension HomeSplitViewController: UISplitViewControllerDelegate {
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
-        guard let secondaryAsNavController = secondaryViewController as? UINavigationController,
-            let _ = secondaryAsNavController.topViewController as? DetailViewController else { return false }
-        return true
+    func splitViewController(_ splitViewController: UISplitViewController,
+                             collapseSecondary secondaryViewController:UIViewController,
+                             onto primaryViewController:UIViewController) -> Bool {
+
+        var retValue = true
+        
+        if let navC = secondaryViewController as? UINavigationController,
+            let vc = navC.visibleViewController,
+            vc.self is DetailViewBase {
+
+            retValue = false
+        } else if splitViewController.viewControllers.count == 1 {
+            retValue = true
+        }
+
+        return retValue
     }
 }

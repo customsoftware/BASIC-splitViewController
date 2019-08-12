@@ -8,10 +8,14 @@
 
 import UIKit
 
+protocol KeepDetailAlive: UIViewController {}
+
 class RootTableViewController: UITableViewController {
     let cellID = "DemoCellID"
     let segueID = "pushDetail"
     let branchSegueID = "pushBranch"
+    
+    var detailDelegate: KeepDetailAlive?
     
     static var collapseDetailViewController = true
     
@@ -58,7 +62,7 @@ class RootTableViewController: UITableViewController {
         switch passedEnum {
         case .exampleOne, .exampleTwo:
             CoreServices.shared.setActiveDetail(passedEnum)
-            performSegue(withIdentifier: segueID, sender: nil)
+            showDetailView()
         case .exampleThree:
             pushToSubTable()
         }
@@ -74,7 +78,13 @@ fileprivate extension RootTableViewController {
 
 extension RootTableViewController: ShowAllDetails {
     func showDetailView() {
-        performSegue(withIdentifier: segueID, sender: nil)
+        guard let detailVC = detailDelegate,
+            let detailNav = detailVC.navigationController,
+            let split = splitViewController else {
+                fatalError("This is an unacceptable state")
+        }
+
+        split.showDetailViewController(detailNav, sender: nil)
     }
 }
 

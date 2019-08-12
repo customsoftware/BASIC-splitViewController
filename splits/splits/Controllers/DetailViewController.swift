@@ -45,6 +45,8 @@ extension DetailViewController: ProgramBuildable {
     func createControls() { }
 }
 
+extension DetailViewController: KeepDetailAlive { }
+
 extension DetailViewController: Responder {
     
     func stateChanged() {
@@ -90,9 +92,7 @@ extension DetailViewController: Responder {
     
     private func getTitle(_ anEnum: TestDetails?) -> String {
         let retValue: String
-        guard let anEnum = anEnum else {
-            print("We have a default enum")
-            return "Default" }
+        guard let anEnum = anEnum else { return "Default" }
         switch anEnum {
         case .exampleOne:
             retValue = "Example One"

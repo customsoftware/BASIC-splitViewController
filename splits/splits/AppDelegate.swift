@@ -51,6 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         detailViewController.navigationItem.leftItemsSupplementBackButton = true
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.preferredDisplayMode = .allVisible
+        
+        masterViewController.detailDelegate = detailViewController
+        
         CoreServices.shared.setActiveDetail(TestDetails.exampleTwo)
         CoreServices.shared.registerDelegate(detailViewController)
     }

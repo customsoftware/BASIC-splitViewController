@@ -31,6 +31,43 @@ enum TestDetails: CaseIterable {
     case exampleOne
     case exampleTwo
     case exampleThree
+    
+    var detailColor: UIColor {
+        let retColor: UIColor
+        switch self {
+        case .exampleThree:
+            retColor = .white
+        case .exampleTwo:
+            retColor = .lightGray
+        case .exampleOne:
+            retColor = .darkGray
+        }
+        return retColor
+    }
+    
+    var textColor: UIColor {
+        let retColor: UIColor
+        switch self {
+        case .exampleThree, .exampleTwo:
+            retColor = .black
+        case .exampleOne:
+            retColor = .white
+        }
+        return retColor
+    }
+    
+    var detailText: String {
+        let retString: String
+        switch self {
+        case .exampleThree:
+            retString = "Example Three"
+        case .exampleTwo:
+            retString = "Example the second"
+        case .exampleOne:
+            retString = "One"
+        }
+        return retString
+    }
 }
 
 struct DetailFactory {
@@ -45,5 +82,39 @@ struct DetailFactory {
             retVC = TestVCThree()
         }
         return retVC
+    }
+}
+
+protocol ShowAllDetails: UIViewController {
+    func showDetailView()
+    func pushToSubTable()
+}
+
+
+
+class RootTableViewDelegate: NSObject, UITableViewDelegate {
+    
+    weak var showDelegate: ShowAllDetails?
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let passedEnum = TestDetails.allCases[indexPath.row]
+        switch passedEnum {
+        case .exampleOne, .exampleTwo:
+            CoreServices.shared.setActiveDetail(passedEnum)
+            showDelegate?.showDetailView()
+        case .exampleThree:
+            showDelegate?.pushToSubTable()
+        }
+    }
+}
+
+
+class BranchTableViewDelegate: NSObject, UITableViewDelegate {
+    weak var showDelegate: ShowAllDetails?
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let passedEnum = TestDetails.allCases[indexPath.row]
+        CoreServices.shared.setActiveDetail(passedEnum)
+        showDelegate?.showDetailView()
     }
 }

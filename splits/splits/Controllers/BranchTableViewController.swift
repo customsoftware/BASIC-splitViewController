@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol ShowAllDetails: UIViewController {
-    func showDetailView()
-}
-
 class  BranchTableViewController: UITableViewController {
     let cellID = "DemoCellID"
     

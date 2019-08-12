@@ -92,16 +92,7 @@ extension DetailViewController: Responder {
     }
     
     private func getTitle(_ anEnum: TestDetails?) -> String {
-        let retValue: String
         guard let anEnum = anEnum else { return "Default" }
-        switch anEnum {
-        case .exampleOne:
-            retValue = "Example One"
-        case .exampleTwo:
-            retValue = "Example the Second"
-        case .exampleThree:
-            retValue = "Third"
-        }
-        return retValue
+        return anEnum.detailText
     }
 }

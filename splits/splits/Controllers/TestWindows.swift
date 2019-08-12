@@ -11,24 +11,27 @@ import UIKit
 class TestVCOne: DetailViewBase {
     override func loadView() {
         super.loadView()
-        view.backgroundColor = .lightGray
-        navigationItem.title = "Light"
+        guard let activeDetail = CoreServices.shared.activeDetail else { return }
+        view.backgroundColor = activeDetail.detailColor
+        navigationItem.title = activeDetail.detailText
     }
 }
 
 class TestVCTwo: DetailViewBase {
     override func loadView() {
         super.loadView()
-        view.backgroundColor = .darkGray
-        navigationItem.title = "Dark"
+        guard let activeDetail = CoreServices.shared.activeDetail else { return }
+        view.backgroundColor = activeDetail.detailColor
+        navigationItem.title = activeDetail.detailText
     }
 }
 
 class TestVCThree: DetailViewBase {
     override func loadView() {
         super.loadView()
-        view.backgroundColor = .white
-        navigationItem.title = "White"
+        guard let activeDetail = CoreServices.shared.activeDetail else { return }
+        view.backgroundColor = activeDetail.detailColor
+        navigationItem.title = activeDetail.detailText
     }
 }
 

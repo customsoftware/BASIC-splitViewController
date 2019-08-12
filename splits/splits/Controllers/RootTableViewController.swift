@@ -15,6 +15,9 @@ class RootTableViewController: UITableViewController {
     let segueID = "pushDetail"
     let branchSegueID = "pushBranch"
     
+    let masterDelegate = RootTableViewDelegate()
+    let subMasterDelegate = BranchTableViewDelegate()
+    
     var detailDelegate: KeepDetailAlive?
     
     static var collapseDetailViewController = true
@@ -24,6 +27,9 @@ class RootTableViewController: UITableViewController {
         navigationItem.title = "Test Master"
         tableView.register(DemoCell.self, forCellReuseIdentifier: cellID)
         splitViewController?.delegate = self
+        tableView.delegate = masterDelegate
+        masterDelegate.showDelegate = self
+        subMasterDelegate.showDelegate = self
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -57,22 +63,12 @@ class RootTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let passedEnum = TestDetails.allCases[indexPath.row]
-        switch passedEnum {
-        case .exampleOne, .exampleTwo:
-            CoreServices.shared.setActiveDetail(passedEnum)
-            showDetailView()
-        case .exampleThree:
-            pushToSubTable()
-        }
-    }
-}
-
-fileprivate extension RootTableViewController {
-    func pushToSubTable() {
+    @objc
+    private func revertToMaster() {
+        tableView.delegate = masterDelegate
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.title = "Master View"
         CoreServices.shared.setActiveDetail(nil)
-        performSegue(withIdentifier: branchSegueID, sender: nil)
     }
 }
 
@@ -83,8 +79,18 @@ extension RootTableViewController: ShowAllDetails {
             let split = splitViewController else {
                 fatalError("This is an unacceptable state")
         }
-
+        RootTableViewController.collapseDetailViewController = true
         split.showDetailViewController(detailNav, sender: nil)
+    }
+    
+    func pushToSubTable() {
+        let back = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(revertToMaster))
+        navigationItem.leftBarButtonItem = back
+        navigationItem.title = "Sub View"
+        
+        CoreServices.shared.setActiveDetail(nil)
+        RootTableViewController.collapseDetailViewController = false
+        tableView.delegate = subMasterDelegate
     }
 }
 

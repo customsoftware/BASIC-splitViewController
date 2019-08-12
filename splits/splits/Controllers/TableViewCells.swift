@@ -9,23 +9,26 @@
 import UIKit
 
 class DemoCell: UITableViewCell {
+    var masterEnum: MasterList? {
+        didSet {
+            guard let masterEnum = masterEnum else { return }
+            selectionStyle = .none
+            
+            textLabel?.text = masterEnum.detailText
+            textLabel?.textColor = masterEnum.textColor
+            contentView.backgroundColor = masterEnum.detailColor
+        }
+    }
+    
     var controllingEnum: TestDetails? {
         didSet{
             guard let controllingEnum = controllingEnum else { return }
-            switch controllingEnum {
-            case .exampleOne:
-                textLabel?.text = "The First Choice"
-                contentView.backgroundColor = UIColor.lightGray
-                
-            case .exampleTwo:
-                textLabel?.text = "The Second Choice"
-                contentView.backgroundColor = UIColor.darkGray
-                textLabel?.textColor = .white
-                
-            case .exampleThree:
-                textLabel?.text = "The Third Choice"
-                textLabel?.textColor = .darkGray
-            }
+            
+            selectionStyle = .none
+            
+            textLabel?.text = controllingEnum.detailText
+            textLabel?.textColor = controllingEnum.textColor
+            contentView.backgroundColor = controllingEnum.detailColor
         }
     }
 }

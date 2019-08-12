@@ -24,7 +24,7 @@ class CoreServices {
         })
     }
     
-    func setActiveDetail(_ newDetail: TestDetails) {
+    func setActiveDetail(_ newDetail: TestDetails?) {
         activeDetail = newDetail
         notifyDelegates()
     }

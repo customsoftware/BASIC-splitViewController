@@ -12,7 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let home = HomeSplitViewController()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setUpSplitView()
@@ -42,12 +41,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func setUpSplitView() {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        guard let window = window else { return }
-        window.backgroundColor = UIColor.lightGray
-        home.configure()
-        window.rootViewController = home
-        window.makeKeyAndVisible()
+        guard let splitViewController = window?.rootViewController as? UISplitViewController,
+            let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
+            let masterViewController = leftNavController.topViewController as? RootTableViewController,
+            let rightNavController = splitViewController.viewControllers.last as? UINavigationController,
+            let detailViewController = rightNavController.topViewController as? DetailViewController
+            else { fatalError() }
+        
+        detailViewController.navigationItem.leftItemsSupplementBackButton = true
+        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+        splitViewController.preferredDisplayMode = .allVisible
+        
+        masterViewController.detailDelegate = detailViewController
+        
+        CoreServices.shared.setActiveDetail(TestDetails.exampleTwo)
+        CoreServices.shared.registerDelegate(detailViewController)
     }
 }
 

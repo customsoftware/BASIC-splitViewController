@@ -14,7 +14,6 @@ protocol ShowAllDetails: UIViewController {
 
 class  BranchTableViewController: UITableViewController {
     let cellID = "DemoCellID"
-    let segueID = "pushAltDetail"
     
     weak var delegate: ShowAllDetails?
     var hideMe = true
@@ -23,24 +22,6 @@ class  BranchTableViewController: UITableViewController {
         super.loadView()
         navigationItem.title = "Test Sub-Master"
         tableView.register(DemoCell.self, forCellReuseIdentifier: cellID)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let segueID = segue.identifier,
-            let options = SegueOptions(rawValue: segueID) else { return }
-        
-        switch options {
-        case .pushAltDetail:
-            guard let destNavC = segue.destination as? UINavigationController,
-                let destVC = destNavC.topViewController as? DetailViewController else { return }
-            
-            RootTableViewController.collapseDetailViewController = false
-            
-            destVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-            destVC.navigationItem.leftItemsSupplementBackButton = true
-            
-        case .pushBranch, .pushDetail:()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

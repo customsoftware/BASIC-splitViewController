@@ -22,13 +22,13 @@ class DetailViewController: UIViewController {
 extension DetailViewController: KeepDetailAlive { }
 
 extension DetailViewController: Responder {
-    
     func stateChanged() {
         defer {
             navigationItem.title = getTitle(CoreServices.shared.activeDetail)
             state = CoreServices.shared.activeDetail
             view.layoutIfNeeded()
         }
+        
         guard let newState = CoreServices.shared.activeDetail else {
             // There is no state so remove all sub-views
             drainChildren()
@@ -48,6 +48,7 @@ extension DetailViewController: Responder {
 }
 
 fileprivate extension DetailViewController {
+    // If you don't set constraints, when you load the child view controllers, they could show up anywhwere in the detail view. This forces them to be in the right place.
     func setConstraints(for newView: UIView) {
         newView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -59,6 +60,8 @@ fileprivate extension DetailViewController {
     
     func drainChildren() {
         children.forEach({
+            // This so you remove only the variable content
+            guard $0 is DetailViewBase else { return }
             $0.willMove(toParent: nil)
             $0.view.removeFromSuperview()
             $0.removeFromParent()

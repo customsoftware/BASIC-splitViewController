@@ -19,21 +19,23 @@ class RootTableViewController: UITableViewController {
     
     override func loadView() {
         super.loadView()
+        // Note you can add as many tableview cells as your different content vc's will use. This is the only place you need to load them since the tableviews referenced in the datasource classes will know what these are.
         tableView.register(DemoMasterCell.self, forCellReuseIdentifier: masterCellID)
         tableView.register(DemoSubCell.self, forCellReuseIdentifier: cellID)
+        
         splitViewController?.delegate = self
-        setForMaster()
         masterEngine.showDelegate = self
         subEngine.showDelegate = self
     }
-    
+}
+
+fileprivate extension RootTableViewController {
     @objc
-    private func revertToMaster() {
+    func revertToMaster() {
         CoreServices.shared.setCurrentMode(.master)
-        CoreServices.shared.setActiveDetail(nil)
     }
     
-    private func setForMaster() {
+    func setForMaster() {
         tableView.delegate = masterEngine
         tableView.dataSource = masterEngine
         
@@ -45,7 +47,7 @@ class RootTableViewController: UITableViewController {
         }
     }
     
-    private func setForSub() {
+    func setForSub() {
         tableView.delegate = subEngine
         tableView.dataSource = subEngine
 
@@ -82,8 +84,7 @@ extension RootTableViewController: ShowAllDetails {
     }
     
     func pushToSubTable() {
-        CoreServices.shared.setActiveDetail(nil)
-        setForSub()
+        CoreServices.shared.setCurrentMode(.detail)
     }
 }
 
@@ -91,7 +92,7 @@ extension RootTableViewController: UISplitViewControllerDelegate {
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         
         // Returning true prevents the default of showing the secondary
-        // view controller.
+        // view controller. The activeDetail property will be nil only if we're not showing content.
         return CoreServices.shared.activeDetail == nil
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Your real content replaces these view controllers
 class TestVCOne: DetailViewBase {
     override func loadView() {
         super.loadView()

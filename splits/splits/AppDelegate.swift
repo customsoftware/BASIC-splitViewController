@@ -30,11 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.preferredDisplayMode = .allVisible
         
+        // The ONLY reason for this delegate is to keep a pointer to the detail view controller. We want the detail to stay alive. This does it.
         masterViewController.detailDelegate = detailViewController
    
-        CoreServices.shared.setCurrentMode(.master)
+        //  Register the delegates to the CoreServices so they can respond to state changes.
         CoreServices.shared.registerDelegate(detailViewController)
         CoreServices.shared.registerDelegate(masterViewController)
+       
+        //  Now, update the state to get started with the app. If you don't do this, it will start in the master view when on an iPhone with compact horizontal display.
+        CoreServices.shared.setActiveDetail(.exampleOne)
     }
 }
 

@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Your real data cells replace these
 class DemoMasterCell: UITableViewCell {
     var controllingEnum: MasterList? {
         didSet {

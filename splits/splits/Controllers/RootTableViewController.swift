@@ -30,6 +30,14 @@ class RootTableViewController: UITableViewController {
 }
 
 fileprivate extension RootTableViewController {
+    func animateSubOn() {
+        
+    }
+    
+    func animateSubOff() {
+        
+    }
+    
     @objc
     func revertToMaster() {
         CoreServices.shared.setCurrentMode(.master)

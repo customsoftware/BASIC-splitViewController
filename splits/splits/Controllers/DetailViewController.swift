@@ -50,9 +50,10 @@ extension DetailViewController: KeepDetailAlive { }
 extension DetailViewController: Responder {
     
     func stateChanged() {
-        state = CoreServices.shared.activeDetail
         defer {
             navigationItem.title = getTitle(CoreServices.shared.activeDetail)
+            state = CoreServices.shared.activeDetail
+            view.layoutIfNeeded()
         }
         guard let newState = CoreServices.shared.activeDetail else {
             // There is no state so remove all sub-views

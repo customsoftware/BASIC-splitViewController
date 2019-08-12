@@ -16,7 +16,6 @@ class  BranchTableViewController: UITableViewController {
     let cellID = "DemoCellID"
     
     weak var delegate: ShowAllDetails?
-    var hideMe = true
     
     override func loadView() {
         super.loadView()
@@ -24,14 +23,9 @@ class  BranchTableViewController: UITableViewController {
         tableView.register(DemoCell.self, forCellReuseIdentifier: cellID)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        hideMe = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if hideMe {
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        if parent == nil {
             CoreServices.shared.setActiveDetail(nil)
         }
     }
@@ -49,7 +43,6 @@ class  BranchTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let passedEnum = TestDetails.allCases[indexPath.row]
-        hideMe = false
         CoreServices.shared.setActiveDetail(passedEnum)
         delegate?.showDetailView()
     }

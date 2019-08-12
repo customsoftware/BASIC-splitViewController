@@ -8,8 +8,16 @@
 
 import UIKit
 
+protocol ShowAllDetails: UIViewController {
+    func showDetailView()
+}
+
 class  BranchTableViewController: UITableViewController {
     let cellID = "DemoCellID"
+    let segueID = "pushAltDetail"
+    
+    weak var delegate: ShowAllDetails?
+    var hideMe = true
     
     override func loadView() {
         super.loadView()
@@ -17,13 +25,36 @@ class  BranchTableViewController: UITableViewController {
         tableView.register(DemoCell.self, forCellReuseIdentifier: cellID)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        guard let split = splitViewController as? HomeSplitViewController,
-            split.viewControllers.count > 1 else { return }
-        CoreServices.shared.setActiveDetail(nil)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueID = segue.identifier,
+            let options = SegueOptions(rawValue: segueID) else { return }
+        
+        switch options {
+        case .pushAltDetail:
+            guard let destNavC = segue.destination as? UINavigationController,
+                let destVC = destNavC.topViewController as? DetailViewController else { return }
+            
+            RootTableViewController.collapseDetailViewController = false
+            
+            destVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            destVC.navigationItem.leftItemsSupplementBackButton = true
+            
+        case .pushBranch, .pushDetail:()
+        }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hideMe = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if hideMe {
+            CoreServices.shared.setActiveDetail(nil)
+        }
+    }
+
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return TestDetails.allCases.count
@@ -37,10 +68,8 @@ class  BranchTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let passedEnum = TestDetails.allCases[indexPath.row]
+        hideMe = false
         CoreServices.shared.setActiveDetail(passedEnum)
-//        guard let split = splitViewController as? HomeSplitViewController,
-//            let detailNav = split.detailNav else { return }
-//        split.showDetailViewController(detailNav, sender: nil)
-//        tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.showDetailView()
     }
 }

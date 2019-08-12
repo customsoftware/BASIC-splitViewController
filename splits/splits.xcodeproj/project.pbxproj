@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		902055AC22FF769000DAF244 /* StaticNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902055AB22FF769000DAF244 /* StaticNavigator.swift */; };
 		904E67D522FF2040002442E8 /* TableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904E67D422FF2040002442E8 /* TableViewCells.swift */; };
 		904E67D722FF2D9D002442E8 /* BranchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904E67D622FF2D9D002442E8 /* BranchTableViewController.swift */; };
 		904E67D922FF47C9002442E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 904E67D822FF47C9002442E8 /* Main.storyboard */; };
@@ -17,7 +16,6 @@
 		90CF2B5522FB01CD0069802F /* splitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B5422FB01CD0069802F /* splitsTests.swift */; };
 		90CF2B6722FB03940069802F /* RootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6622FB03940069802F /* RootTableViewController.swift */; };
 		90CF2B6922FB03CB0069802F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6822FB03CB0069802F /* DetailViewController.swift */; };
-		90CF2B6B22FB03F30069802F /* HomeSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6A22FB03F30069802F /* HomeSplitViewController.swift */; };
 		90CF2B6E22FB06230069802F /* ViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6D22FB06230069802F /* ViewProtocols.swift */; };
 		90CF2B7122FB0EFE0069802F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B7022FB0EFE0069802F /* Models.swift */; };
 		90CF2B7422FB0F440069802F /* Managers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B7322FB0F440069802F /* Managers.swift */; };
@@ -35,7 +33,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		902055AB22FF769000DAF244 /* StaticNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticNavigator.swift; sourceTree = "<group>"; };
 		904E67D422FF2040002442E8 /* TableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCells.swift; sourceTree = "<group>"; };
 		904E67D622FF2D9D002442E8 /* BranchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchTableViewController.swift; sourceTree = "<group>"; };
 		904E67D822FF47C9002442E8 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -49,7 +46,6 @@
 		90CF2B5622FB01CD0069802F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90CF2B6622FB03940069802F /* RootTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTableViewController.swift; sourceTree = "<group>"; };
 		90CF2B6822FB03CB0069802F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		90CF2B6A22FB03F30069802F /* HomeSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSplitViewController.swift; sourceTree = "<group>"; };
 		90CF2B6D22FB06230069802F /* ViewProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProtocols.swift; sourceTree = "<group>"; };
 		90CF2B7022FB0EFE0069802F /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		90CF2B7322FB0F440069802F /* Managers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managers.swift; sourceTree = "<group>"; };
@@ -122,11 +118,9 @@
 			children = (
 				90CF2B6622FB03940069802F /* RootTableViewController.swift */,
 				90CF2B6822FB03CB0069802F /* DetailViewController.swift */,
-				90CF2B6A22FB03F30069802F /* HomeSplitViewController.swift */,
 				90FA125222FDB74E00B0D5D7 /* TestWindows.swift */,
 				904E67D422FF2040002442E8 /* TableViewCells.swift */,
 				904E67D622FF2D9D002442E8 /* BranchTableViewController.swift */,
-				902055AB22FF769000DAF244 /* StaticNavigator.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -256,12 +250,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90CF2B6B22FB03F30069802F /* HomeSplitViewController.swift in Sources */,
 				90CF2B6922FB03CB0069802F /* DetailViewController.swift in Sources */,
 				90CF2B7422FB0F440069802F /* Managers.swift in Sources */,
 				90CF2B6E22FB06230069802F /* ViewProtocols.swift in Sources */,
 				90CF2B7122FB0EFE0069802F /* Models.swift in Sources */,
-				902055AC22FF769000DAF244 /* StaticNavigator.swift in Sources */,
 				90CF2B4022FB01CB0069802F /* AppDelegate.swift in Sources */,
 				90CF2B6722FB03940069802F /* RootTableViewController.swift in Sources */,
 				904E67D722FF2D9D002442E8 /* BranchTableViewController.swift in Sources */,

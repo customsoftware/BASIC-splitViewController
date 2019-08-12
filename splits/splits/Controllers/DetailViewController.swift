@@ -9,6 +9,9 @@
 import UIKit
 
 class DetailViewController: UIViewController {
+    
+    private var state: TestDetails?
+    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .blue
@@ -17,7 +20,24 @@ class DetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        stateChanged()
+        if statesHaveChanged() {
+            stateChanged()
+        }
+    }
+    
+    private func statesHaveChanged() -> Bool {
+        guard let state = state,
+            let activeState = CoreServices.shared.activeDetail else { return true }
+        var retValue = false
+        switch state {
+        case .exampleOne:
+            retValue = activeState == .exampleOne
+        case .exampleTwo:
+            retValue = activeState == .exampleTwo
+        case .exampleThree:
+            retValue = activeState == .exampleThree
+        }
+        return retValue
     }
 }
 
@@ -28,27 +48,39 @@ extension DetailViewController: ProgramBuildable {
 extension DetailViewController: Responder {
     
     func stateChanged() {
-        
+        state = CoreServices.shared.activeDetail
+        defer {
+            navigationItem.title = getTitle(CoreServices.shared.activeDetail)
+        }
         guard let newState = CoreServices.shared.activeDetail else {
             // There is no state so remove all sub-views
             drainChildren()
             return
         }
         
-        if children.count > 0 {
-            drainChildren()
-        }
+        drainChildren()
         
         let newVC = DetailFactory.build(for: newState)
-        newVC.willMove(toParent: self)
-        addChild(newVC)
-        view.addSubview(newVC.view)
-        navigationItem.title = getTitle(newState)
+        if let newView = newVC.view {
+            newVC.willMove(toParent: self)
+            addChild(newVC)
+            view.addSubview(newView)
+            // Set constraints to have the new view fill the available space
+            setConstraints(for: newView)
+        }
+    }
+    
+    private func setConstraints(for newView: UIView) {
+        newView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
+            newView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            newView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:0),
+            newView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0) ])
     }
     
     private func drainChildren() {
         children.forEach({
-            guard $0.self is DetailViewBase else { return }
             $0.willMove(toParent: nil)
             $0.view.removeFromSuperview()
             $0.removeFromParent()
@@ -56,8 +88,11 @@ extension DetailViewController: Responder {
         return
     }
     
-    private func getTitle(_ anEnum: TestDetails) -> String {
+    private func getTitle(_ anEnum: TestDetails?) -> String {
         let retValue: String
+        guard let anEnum = anEnum else {
+            print("We have a default enum")
+            return "Default" }
         switch anEnum {
         case .exampleOne:
             retValue = "Example One"
@@ -66,8 +101,6 @@ extension DetailViewController: Responder {
         case .exampleThree:
             retValue = "Third"
         }
-        
         return retValue
     }
-    
 }

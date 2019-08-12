@@ -8,19 +8,38 @@
 
 import UIKit
 
-enum TestDetails: CaseIterable {
-    case exampleOne
-    case exampleTwo
-    case exampleThree
-}
-
 class RootTableViewController: UITableViewController {
     let cellID = "DemoCellID"
-   
+    let segueID = "pushDetail"
+    let branchSegueID = "pushBranch"
+    
+    static var collapseDetailViewController = true
+    
     override func loadView() {
         super.loadView()
         navigationItem.title = "Test Master"
         tableView.register(DemoCell.self, forCellReuseIdentifier: cellID)
+        splitViewController?.delegate = self
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueID = segue.identifier,
+            let options = SegueOptions(rawValue: segueID) else { return }
+        
+        switch options {
+        case .pushDetail, .pushAltDetail:
+            guard let destNavC = segue.destination as? UINavigationController,
+                let destVC = destNavC.topViewController as? DetailViewController else { return }
+            
+            RootTableViewController.collapseDetailViewController = false
+            
+            destVC.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            destVC.navigationItem.leftItemsSupplementBackButton = true
+            
+        case .pushBranch:
+            guard let destVC = segue.destination as? BranchTableViewController else { return }
+            destVC.delegate = self
+        }
     }
     
     // MARK: - Table view data source
@@ -36,15 +55,34 @@ class RootTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let passedEnum = TestDetails.allCases[indexPath.row]
-        CoreServices.shared.setActiveDetail(passedEnum)
-        splitViewController?.showDetailViewController(StaticNavigator.shared, sender: nil)
+        switch passedEnum {
+        case .exampleOne, .exampleTwo:
+            CoreServices.shared.setActiveDetail(passedEnum)
+            performSegue(withIdentifier: segueID, sender: nil)
+        case .exampleThree:
+            pushToSubTable()
+        }
     }
 }
 
 fileprivate extension RootTableViewController {
     func pushToSubTable() {
         CoreServices.shared.setActiveDetail(nil)
-        let newVC = BranchTableViewController()
-        navigationController?.pushViewController(newVC, animated: true)
+        performSegue(withIdentifier: branchSegueID, sender: nil)
+    }
+}
+
+extension RootTableViewController: ShowAllDetails {
+    func showDetailView() {
+        performSegue(withIdentifier: segueID, sender: nil)
+    }
+}
+
+extension RootTableViewController: UISplitViewControllerDelegate {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        
+        // Returning true prevents the default of showing the secondary
+        // view controller.
+        return RootTableViewController.collapseDetailViewController
     }
 }

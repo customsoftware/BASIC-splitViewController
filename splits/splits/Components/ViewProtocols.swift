@@ -17,8 +17,20 @@ protocol Responder: UIViewController {
     //    func updateState(with type: StateTypes, and value: Any)
 }
 
+enum SegueOptions: String {
+    case pushDetail
+    case pushBranch
+    case pushAltDetail
+}
+
 enum StateTypes {
     case detailChanged
+}
+
+enum TestDetails: CaseIterable {
+    case exampleOne
+    case exampleTwo
+    case exampleThree
 }
 
 struct DetailFactory {

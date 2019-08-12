@@ -32,21 +32,4 @@ class TestVCThree: DetailViewBase {
     }
 }
 
-class DetailViewBase: UIViewController {
-//    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-//        guard fromInterfaceOrientation == .portrait || fromInterfaceOrientation == .portraitUpsideDown,
-//            UIDevice.current.userInterfaceIdiom == .phone,
-//            let splitView = splitViewController as? HomeSplitViewController else { return }
-//
-//        var doSetBack = false
-//        if  traitCollection.horizontalSizeClass == .regular ||
-//            traitCollection.verticalSizeClass == .regular {
-//            
-//            doSetBack = true
-//        }
-//        
-//        if doSetBack {
-//            splitView.setBackButton()
-//        }
-//    }
-}
+class DetailViewBase: UIViewController { }

@@ -13,6 +13,7 @@ class CoreServices {
     
     private var _delegates = [Responder?]()
     private(set) var activeDetail: TestDetails?
+    private(set) var activeMode: ListMode?
     
     func registerDelegate(_ newDelegate: Responder?) {
         _delegates.append(newDelegate)
@@ -22,6 +23,12 @@ class CoreServices {
         _delegates.forEach({
             $0?.stateChanged()
         })
+    }
+    
+    func setCurrentMode(_ newMode: ListMode) {
+        activeMode = newMode
+        activeDetail = nil
+        notifyDelegates()
     }
     
     func setActiveDetail(_ newDetail: TestDetails?) {

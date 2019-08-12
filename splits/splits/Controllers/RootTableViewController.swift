@@ -8,13 +8,6 @@
 
 import UIKit
 
-protocol KeepDetailAlive: UIViewController {}
-
-enum ListMode {
-    case master
-    case detail
-}
-
 class RootTableViewController: UITableViewController {
     let cellID = "DemoCellID"
     let masterCellID = "MasterCellID"
@@ -23,9 +16,6 @@ class RootTableViewController: UITableViewController {
     let subEngine = SubTableViewEngine()
     
     var detailDelegate: KeepDetailAlive?
-    var mode: ListMode = .master
-    
-    static var collapseDetailViewController = true
     
     override func loadView() {
         super.loadView()
@@ -39,8 +29,8 @@ class RootTableViewController: UITableViewController {
     
     @objc
     private func revertToMaster() {
+        CoreServices.shared.setCurrentMode(.master)
         CoreServices.shared.setActiveDetail(nil)
-        setForMaster()
     }
     
     private func setForMaster() {
@@ -51,13 +41,11 @@ class RootTableViewController: UITableViewController {
             self.navigationItem.leftBarButtonItem = nil
             self.navigationItem.title = "Master View"
             self.view.layoutIfNeeded()
-            self.mode = .master
             self.tableView.reloadData()
         }
     }
     
     private func setForSub() {
-        RootTableViewController.collapseDetailViewController = false
         tableView.delegate = subEngine
         tableView.dataSource = subEngine
 
@@ -65,8 +53,20 @@ class RootTableViewController: UITableViewController {
             let back = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(self.revertToMaster))
             self.navigationItem.leftBarButtonItem = back
             self.navigationItem.title = "Sub View"
-            self.mode = .detail
             self.tableView.reloadData()
+        }
+    }
+}
+
+extension RootTableViewController: Responder {
+    func stateChanged() {
+        guard let mode = CoreServices.shared.activeMode else { return }
+        switch mode {
+        case .detail:
+            setForSub()
+            
+        case .master:
+            setForMaster()
         }
     }
 }
@@ -78,7 +78,6 @@ extension RootTableViewController: ShowAllDetails {
             let split = splitViewController else {
                 fatalError("This is an unacceptable state")
         }
-        RootTableViewController.collapseDetailViewController = true
         split.showDetailViewController(detailNav, sender: nil)
     }
     
@@ -93,6 +92,6 @@ extension RootTableViewController: UISplitViewControllerDelegate {
         
         // Returning true prevents the default of showing the secondary
         // view controller.
-        return RootTableViewController.collapseDetailViewController
+        return CoreServices.shared.activeDetail == nil
     }
 }

@@ -17,32 +17,6 @@ class DetailViewController: UIViewController {
         view.backgroundColor = .blue
         navigationItem.title = "Details"
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if statesHaveChanged() {
-            stateChanged()
-        }
-    }
-    
-    private func statesHaveChanged() -> Bool {
-        guard let state = state,
-            let activeState = CoreServices.shared.activeDetail else { return true }
-        var retValue = false
-        switch state {
-        case .exampleOne:
-            retValue = activeState == .exampleOne
-        case .exampleTwo:
-            retValue = activeState == .exampleTwo
-        case .exampleThree:
-            retValue = activeState == .exampleThree
-        }
-        return retValue
-    }
-}
-
-extension DetailViewController: ProgramBuildable {
-    func createControls() { }
 }
 
 extension DetailViewController: KeepDetailAlive { }
@@ -68,12 +42,13 @@ extension DetailViewController: Responder {
             newVC.willMove(toParent: self)
             addChild(newVC)
             view.addSubview(newView)
-            // Set constraints to have the new view fill the available space
             setConstraints(for: newView)
         }
     }
-    
-    private func setConstraints(for newView: UIView) {
+}
+
+fileprivate extension DetailViewController {
+    func setConstraints(for newView: UIView) {
         newView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             newView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
@@ -82,7 +57,7 @@ extension DetailViewController: Responder {
             newView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0) ])
     }
     
-    private func drainChildren() {
+    func drainChildren() {
         children.forEach({
             $0.willMove(toParent: nil)
             $0.view.removeFromSuperview()
@@ -91,7 +66,7 @@ extension DetailViewController: Responder {
         return
     }
     
-    private func getTitle(_ anEnum: TestDetails?) -> String {
+    func getTitle(_ anEnum: TestDetails?) -> String {
         guard let anEnum = anEnum else { return "Default" }
         return anEnum.detailText
     }

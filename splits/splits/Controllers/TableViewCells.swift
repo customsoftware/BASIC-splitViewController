@@ -8,18 +8,20 @@
 
 import UIKit
 
-class DemoCell: UITableViewCell {
-    var masterEnum: MasterList? {
+class DemoMasterCell: UITableViewCell {
+    var controllingEnum: MasterList? {
         didSet {
-            guard let masterEnum = masterEnum else { return }
+            guard let controllingEnum = controllingEnum else { return }
             selectionStyle = .none
             
-            textLabel?.text = masterEnum.detailText
-            textLabel?.textColor = masterEnum.textColor
-            contentView.backgroundColor = masterEnum.detailColor
+            textLabel?.text = controllingEnum.detailText
+            textLabel?.textColor = controllingEnum.textColor
+            contentView.backgroundColor = controllingEnum.detailColor
         }
     }
-    
+}
+
+class DemoSubCell: UITableViewCell {
     var controllingEnum: TestDetails? {
         didSet{
             guard let controllingEnum = controllingEnum else { return }

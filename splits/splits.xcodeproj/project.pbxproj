@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		904E67D522FF2040002442E8 /* TableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904E67D422FF2040002442E8 /* TableViewCells.swift */; };
-		904E67D722FF2D9D002442E8 /* BranchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904E67D622FF2D9D002442E8 /* BranchTableViewController.swift */; };
 		904E67D922FF47C9002442E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 904E67D822FF47C9002442E8 /* Main.storyboard */; };
 		90CF2B4022FB01CB0069802F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B3F22FB01CB0069802F /* AppDelegate.swift */; };
 		90CF2B4722FB01CD0069802F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90CF2B4622FB01CD0069802F /* Assets.xcassets */; };
@@ -34,7 +33,6 @@
 
 /* Begin PBXFileReference section */
 		904E67D422FF2040002442E8 /* TableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCells.swift; sourceTree = "<group>"; };
-		904E67D622FF2D9D002442E8 /* BranchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchTableViewController.swift; sourceTree = "<group>"; };
 		904E67D822FF47C9002442E8 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		90CF2B3C22FB01CB0069802F /* splits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = splits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90CF2B3F22FB01CB0069802F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 				90CF2B6822FB03CB0069802F /* DetailViewController.swift */,
 				90FA125222FDB74E00B0D5D7 /* TestWindows.swift */,
 				904E67D422FF2040002442E8 /* TableViewCells.swift */,
-				904E67D622FF2D9D002442E8 /* BranchTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -256,7 +253,6 @@
 				90CF2B7122FB0EFE0069802F /* Models.swift in Sources */,
 				90CF2B4022FB01CB0069802F /* AppDelegate.swift in Sources */,
 				90CF2B6722FB03940069802F /* RootTableViewController.swift in Sources */,
-				904E67D722FF2D9D002442E8 /* BranchTableViewController.swift in Sources */,
 				904E67D522FF2040002442E8 /* TableViewCells.swift in Sources */,
 				90FA125322FDB74E00B0D5D7 /* TestWindows.swift in Sources */,
 			);

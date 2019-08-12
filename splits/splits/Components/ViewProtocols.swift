@@ -134,9 +134,20 @@ protocol ShowAllDetails: UIViewController {
     func pushToSubTable()
 }
 
-class RootTableViewDelegate: NSObject, UITableViewDelegate {
+class MasterTableViewEngine: NSObject, UITableViewDelegate, UITableViewDataSource {
+    let cellID = "MasterCellID"
     
     weak var showDelegate: ShowAllDetails?
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return MasterList.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! DemoMasterCell
+        cell.controllingEnum = MasterList.allCases[indexPath.row]
+        return cell
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let passedEnum = TestDetails.allCases[indexPath.row]
@@ -150,8 +161,20 @@ class RootTableViewDelegate: NSObject, UITableViewDelegate {
     }
 }
 
-class BranchTableViewDelegate: NSObject, UITableViewDelegate {
+class SubTableViewEngine: NSObject, UITableViewDelegate, UITableViewDataSource {
     weak var showDelegate: ShowAllDetails?
+    let cellID = "DemoCellID"
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return TestDetails.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! DemoSubCell
+        cell.controllingEnum = TestDetails.allCases[indexPath.row]
+        return cell
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let passedEnum = TestDetails.allCases[indexPath.row]

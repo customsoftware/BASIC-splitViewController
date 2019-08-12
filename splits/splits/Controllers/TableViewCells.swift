@@ -9,6 +9,17 @@
 import UIKit
 
 class DemoCell: UITableViewCell {
+    var masterEnum: MasterList? {
+        didSet {
+            guard let masterEnum = masterEnum else { return }
+            selectionStyle = .none
+            
+            textLabel?.text = masterEnum.detailText
+            textLabel?.textColor = masterEnum.textColor
+            contentView.backgroundColor = masterEnum.detailColor
+        }
+    }
+    
     var controllingEnum: TestDetails? {
         didSet{
             guard let controllingEnum = controllingEnum else { return }

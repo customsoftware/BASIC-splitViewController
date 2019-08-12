@@ -10,6 +10,11 @@ import UIKit
 
 protocol KeepDetailAlive: UIViewController {}
 
+enum ListMode {
+    case master
+    case detail
+}
+
 class RootTableViewController: UITableViewController {
     let cellID = "DemoCellID"
     let segueID = "pushDetail"
@@ -19,6 +24,7 @@ class RootTableViewController: UITableViewController {
     let subMasterDelegate = BranchTableViewDelegate()
     
     var detailDelegate: KeepDetailAlive?
+    var mode: ListMode = .master
     
     static var collapseDetailViewController = true
     
@@ -54,20 +60,42 @@ class RootTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TestDetails.allCases.count
+        var retValue = 0
+        switch mode {
+        case .master:
+            retValue = MasterList.allCases.count
+        case .detail:
+            retValue = TestDetails.allCases.count
+        }
+        
+        return retValue
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! DemoCell
-        cell.controllingEnum = TestDetails.allCases[indexPath.row]
+        switch mode {
+        case .master:
+            cell.masterEnum = MasterList.allCases[indexPath.row]
+        case .detail:
+            cell.controllingEnum = TestDetails.allCases[indexPath.row]
+        }
+        
+        
         return cell
     }
     
     @objc
     private func revertToMaster() {
         tableView.delegate = masterDelegate
-        navigationItem.leftBarButtonItem = nil
-        navigationItem.title = "Master View"
+        
+        UIView.animate(withDuration: 0.5) {
+            self.navigationItem.leftBarButtonItem = nil
+            self.navigationItem.title = "Master View"
+            self.view.layoutIfNeeded()
+            self.mode = .master
+            self.tableView.reloadData()
+        }
+        
         CoreServices.shared.setActiveDetail(nil)
     }
 }
@@ -84,9 +112,14 @@ extension RootTableViewController: ShowAllDetails {
     }
     
     func pushToSubTable() {
-        let back = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(revertToMaster))
-        navigationItem.leftBarButtonItem = back
-        navigationItem.title = "Sub View"
+        
+        UIView.animate(withDuration: 0.8) {
+            let back = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(self.revertToMaster))
+            self.navigationItem.leftBarButtonItem = back
+            self.navigationItem.title = "Sub View"
+            self.mode = .detail
+            self.tableView.reloadData()
+        }
         
         CoreServices.shared.setActiveDetail(nil)
         RootTableViewController.collapseDetailViewController = false

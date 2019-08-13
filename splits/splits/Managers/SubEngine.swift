@@ -9,7 +9,7 @@
 import UIKit
 
 class SubTableViewEngine: NSObject, UITableViewDelegate, UITableViewDataSource {
-    private let cellID = "DemoCellID"
+    private let cellID = CellIDs.DemoCellID.rawValue
     weak var showDelegate: ShowAllDetails?
     
     // Data Source

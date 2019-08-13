@@ -12,3 +12,8 @@ enum ListMode {
     case master
     case detail
 }
+
+enum CellIDs: String {
+    case DemoCellID
+    case MasterCellID
+}

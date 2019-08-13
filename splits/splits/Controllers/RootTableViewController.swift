@@ -9,8 +9,8 @@
 import UIKit
 
 class RootTableViewController: UITableViewController {
-    let cellID = "DemoCellID"
-    let masterCellID = "MasterCellID"
+    let cellID = CellIDs.DemoCellID.rawValue
+    let masterCellID = CellIDs.MasterCellID.rawValue
     
     let masterEngine = MasterTableViewEngine()
     let subEngine = SubTableViewEngine()

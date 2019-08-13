@@ -8,13 +8,10 @@
 
 import UIKit
 
-protocol KeepDetailAlive: UIViewController {}
-
 protocol Responder: UIViewController {
     func stateChanged()
 }
 
 protocol ShowAllDetails: UIViewController {
     func showDetailView()
-    func pushToSubTable()
 }

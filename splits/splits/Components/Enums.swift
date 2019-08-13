@@ -13,12 +13,7 @@ enum ListMode {
     case detail
 }
 
-enum SegueOptions: String {
-    case pushDetail
-    case pushBranch
-    case pushAltDetail
-}
-
-enum StateTypes {
-    case detailChanged
+enum CellIDs: String {
+    case DemoCellID
+    case MasterCellID
 }

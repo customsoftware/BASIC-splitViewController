@@ -1,40 +1,41 @@
 //
-//  RootTableViewController.swift
+//  SubMasterTableViewController.swift
 //  splits
 //
-//  Created by Kenneth Cluff on 8/7/19.
+//  Created by Kenneth Cluff on 8/13/19.
 //  Copyright © 2019 Kenneth Cluff. All rights reserved.
 //
 
 import UIKit
 
-class RootTableViewController: UITableViewController {
+class SubMasterTableViewController: UITableViewController {
     let cellID = CellIDs.DemoCellID.rawValue
     let masterCellID = CellIDs.MasterCellID.rawValue
     
-    let masterEngine = MasterTableViewEngine()
+    let subEngine = SubTableViewEngine()
     
     override func loadView() {
         super.loadView()
         registerTableViewCells()
         setupDelegateAndDataSources()
+//        tableView.reloadData()
     }
 }
 
-fileprivate extension RootTableViewController {
+fileprivate extension SubMasterTableViewController {
     func setupDelegateAndDataSources() {
-        masterEngine.showDelegate = self
-        tableView.dataSource = masterEngine
-        tableView.delegate = masterEngine
+        subEngine.showDelegate = self
+        tableView.dataSource = subEngine
+        tableView.delegate = subEngine
     }
     
     func registerTableViewCells() {
         // Note you can add as many tableview cells as your different content vc's will use. This is the only place you need to load them since the tableviews referenced in the datasource classes will know what these are.
-        tableView.register(DemoMasterCell.self, forCellReuseIdentifier: masterCellID)
+        tableView.register(DemoSubCell.self, forCellReuseIdentifier: cellID)
     }
 }
 
-extension RootTableViewController: ShowAllDetails {
+extension SubMasterTableViewController: ShowAllDetails {
     func showDetailView() {
         guard let detailVC = CoreServices.shared.detailView,
             let detailNav = detailVC.navigationController,

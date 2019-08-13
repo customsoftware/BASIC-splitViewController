@@ -15,30 +15,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setUpSplitView()
+        initialDataLoad()
         return true
     }
+}
 
-    private func setUpSplitView() {
+fileprivate extension AppDelegate {
+    func setUpSplitView() {
         guard let splitViewController = window?.rootViewController as? UISplitViewController,
             let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
-            let masterViewController = leftNavController.topViewController as? RootTableViewController,
+            let masterViewController = leftNavController.topViewController as? MasterContainerViewController,
             let rightNavController = splitViewController.viewControllers.last as? UINavigationController,
             let detailViewController = rightNavController.topViewController as? DetailViewController
-            else { fatalError() }
+            else { fatalError("The splitViewController failed to build itself.... Boom!") }
         
-        detailViewController.navigationItem.leftItemsSupplementBackButton = true
-        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.preferredDisplayMode = .allVisible
-        
-        // The ONLY reason for this delegate is to keep a pointer to the detail view controller. We want the detail to stay alive. This does it.
-        masterViewController.detailDelegate = detailViewController
-   
-        //  Register the delegates to the CoreServices so they can respond to state changes.
+        configureDetailViewLeftBarbutton(detailViewController, in: splitViewController)
+        CoreServices.shared.rememberDetailViewController(detailViewController)
+        registerViewControllersToCoreServices(detail: detailViewController, andMaster: masterViewController)
+    }
+    
+    func registerViewControllersToCoreServices(detail detailViewController: Responder, andMaster masterViewController: Responder) {
         CoreServices.shared.registerDelegate(detailViewController)
         CoreServices.shared.registerDelegate(masterViewController)
-       
+    }
+    
+    func configureDetailViewLeftBarbutton(_ detailViewController: UIViewController, in splitViewController: UISplitViewController) {
+        detailViewController.navigationItem.leftItemsSupplementBackButton = true
+        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+    }
+    
+    func initialDataLoad() {
         //  Now, update the state to get started with the app. If you don't do this, it will start in the master view when on an iPhone with compact horizontal display.
         CoreServices.shared.setActiveDetail(.exampleOne)
     }
 }
-

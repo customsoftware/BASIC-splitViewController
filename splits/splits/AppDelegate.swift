@@ -32,10 +32,10 @@ fileprivate extension AppDelegate {
         splitViewController.preferredDisplayMode = .allVisible
         configureDetailViewLeftBarbutton(detailViewController, in: splitViewController)
         CoreServices.shared.rememberDetailViewController(detailViewController)
-        registerToCoreServices(detail: detailViewController, andMaster: masterViewController)
+        registerViewControllersToCoreServices(detail: detailViewController, andMaster: masterViewController)
     }
     
-    func registerToCoreServices(detail detailViewController: Responder, andMaster masterViewController: Responder) {
+    func registerViewControllersToCoreServices(detail detailViewController: Responder, andMaster masterViewController: Responder) {
         CoreServices.shared.registerDelegate(detailViewController)
         CoreServices.shared.registerDelegate(masterViewController)
     }

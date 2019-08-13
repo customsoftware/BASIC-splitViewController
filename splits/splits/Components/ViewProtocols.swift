@@ -14,5 +14,4 @@ protocol Responder: UIViewController {
 
 protocol ShowAllDetails: UIViewController {
     func showDetailView()
-    func pushToSubTable()
 }

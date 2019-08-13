@@ -80,10 +80,6 @@ extension RootTableViewController: ShowAllDetails {
         }
         split.showDetailViewController(detailNav, sender: nil)
     }
-    
-    func pushToSubTable() {
-        CoreServices.shared.setCurrentMode(.detail)
-    }
 }
 
 extension RootTableViewController: UISplitViewControllerDelegate {

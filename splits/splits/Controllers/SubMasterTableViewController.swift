@@ -18,7 +18,6 @@ class SubMasterTableViewController: UITableViewController {
         super.loadView()
         registerTableViewCells()
         setupDelegateAndDataSources()
-//        tableView.reloadData()
     }
 }
 

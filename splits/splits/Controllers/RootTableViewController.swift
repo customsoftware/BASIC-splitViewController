@@ -15,21 +15,26 @@ class RootTableViewController: UITableViewController {
     let masterEngine = MasterTableViewEngine()
     let subEngine = SubTableViewEngine()
     
-    var detailDelegate: KeepDetailAlive?
-    
     override func loadView() {
         super.loadView()
-        // Note you can add as many tableview cells as your different content vc's will use. This is the only place you need to load them since the tableviews referenced in the datasource classes will know what these are.
-        tableView.register(DemoMasterCell.self, forCellReuseIdentifier: masterCellID)
-        tableView.register(DemoSubCell.self, forCellReuseIdentifier: cellID)
-        
-        splitViewController?.delegate = self
-        masterEngine.showDelegate = self
-        subEngine.showDelegate = self
+        registerTableViewCells()
+        setupDelegates()
     }
 }
 
 fileprivate extension RootTableViewController {
+    func setupDelegates() {
+        splitViewController?.delegate = self
+        masterEngine.showDelegate = self
+        subEngine.showDelegate = self
+    }
+    
+    func registerTableViewCells() {
+        // Note you can add as many tableview cells as your different content vc's will use. This is the only place you need to load them since the tableviews referenced in the datasource classes will know what these are.
+        tableView.register(DemoMasterCell.self, forCellReuseIdentifier: masterCellID)
+        tableView.register(DemoSubCell.self, forCellReuseIdentifier: cellID)
+    }
+    
     @objc
     func revertToMaster() {
         CoreServices.shared.setCurrentMode(.master)
@@ -75,7 +80,7 @@ extension RootTableViewController: Responder {
 
 extension RootTableViewController: ShowAllDetails {
     func showDetailView() {
-        guard let detailVC = detailDelegate,
+        guard let detailVC = CoreServices.shared.detailView,
             let detailNav = detailVC.navigationController,
             let split = splitViewController else {
                 fatalError("This is an unacceptable state")

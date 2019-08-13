@@ -21,7 +21,7 @@
 		90CF2B6922FB03CB0069802F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6822FB03CB0069802F /* DetailViewController.swift */; };
 		90CF2B6E22FB06230069802F /* ViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6D22FB06230069802F /* ViewProtocols.swift */; };
 		90CF2B7122FB0EFE0069802F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B7022FB0EFE0069802F /* Models.swift */; };
-		90CF2B7422FB0F440069802F /* Managers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B7322FB0F440069802F /* Managers.swift */; };
+		90CF2B7422FB0F440069802F /* CoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B7322FB0F440069802F /* CoreServices.swift */; };
 		90FA125322FDB74E00B0D5D7 /* TestWindows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FA125222FDB74E00B0D5D7 /* TestWindows.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,7 +54,7 @@
 		90CF2B6822FB03CB0069802F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		90CF2B6D22FB06230069802F /* ViewProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProtocols.swift; sourceTree = "<group>"; };
 		90CF2B7022FB0EFE0069802F /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		90CF2B7322FB0F440069802F /* Managers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managers.swift; sourceTree = "<group>"; };
+		90CF2B7322FB0F440069802F /* CoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServices.swift; sourceTree = "<group>"; };
 		90FA125222FDB74E00B0D5D7 /* TestWindows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestWindows.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,7 +153,7 @@
 			children = (
 				84D9F2202301F10400D9723D /* MasterEngine.swift */,
 				84D9F2222301F12700D9723D /* SubEngine.swift */,
-				90CF2B7322FB0F440069802F /* Managers.swift */,
+				90CF2B7322FB0F440069802F /* CoreServices.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -260,7 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90CF2B6922FB03CB0069802F /* DetailViewController.swift in Sources */,
-				90CF2B7422FB0F440069802F /* Managers.swift in Sources */,
+				90CF2B7422FB0F440069802F /* CoreServices.swift in Sources */,
 				84D9F2232301F12700D9723D /* SubEngine.swift in Sources */,
 				90CF2B6E22FB06230069802F /* ViewProtocols.swift in Sources */,
 				84D9F2212301F10400D9723D /* MasterEngine.swift in Sources */,

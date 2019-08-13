@@ -9,7 +9,7 @@
 import UIKit
 
 class MasterTableViewEngine: NSObject, UITableViewDelegate, UITableViewDataSource {
-    let cellID = "MasterCellID"
+    private let cellID = "MasterCellID"
     
     weak var showDelegate: ShowAllDetails?
     

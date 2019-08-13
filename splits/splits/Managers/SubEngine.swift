@@ -9,8 +9,8 @@
 import UIKit
 
 class SubTableViewEngine: NSObject, UITableViewDelegate, UITableViewDataSource {
+    private let cellID = "DemoCellID"
     weak var showDelegate: ShowAllDetails?
-    let cellID = "DemoCellID"
     
     // Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

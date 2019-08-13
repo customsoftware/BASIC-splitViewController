@@ -8,8 +8,6 @@
 
 import UIKit
 
-protocol KeepDetailAlive: UIViewController {}
-
 protocol Responder: UIViewController {
     func stateChanged()
 }

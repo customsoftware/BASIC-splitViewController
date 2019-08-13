@@ -12,13 +12,3 @@ enum ListMode {
     case master
     case detail
 }
-
-enum SegueOptions: String {
-    case pushDetail
-    case pushBranch
-    case pushAltDetail
-}
-
-enum StateTypes {
-    case detailChanged
-}

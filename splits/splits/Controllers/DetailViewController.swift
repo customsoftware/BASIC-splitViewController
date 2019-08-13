@@ -9,9 +9,6 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    
-    private var state: TestDetails?
-    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .blue
@@ -19,23 +16,19 @@ class DetailViewController: UIViewController {
     }
 }
 
-extension DetailViewController: KeepDetailAlive { }
-
 extension DetailViewController: Responder {
     func stateChanged() {
         defer {
             navigationItem.title = getTitle(CoreServices.shared.activeDetail)
-            state = CoreServices.shared.activeDetail
-            view.layoutIfNeeded()
         }
         
         guard let newState = CoreServices.shared.activeDetail else {
             // There is no state so remove all sub-views
-            drainChildren()
+            removeChildViewControllers()
             return
         }
         
-        drainChildren()
+        removeChildViewControllers()
         
         let newVC = DetailFactory.build(for: newState)
         if let newView = newVC.view {
@@ -58,7 +51,7 @@ fileprivate extension DetailViewController {
             newView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0) ])
     }
     
-    func drainChildren() {
+    func removeChildViewControllers() {
         children.forEach({
             // This so you remove only the variable content
             guard $0 is DetailViewBase else { return }

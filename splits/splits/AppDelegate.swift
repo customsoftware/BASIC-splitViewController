@@ -24,7 +24,7 @@ fileprivate extension AppDelegate {
     func setUpSplitView() {
         guard let splitViewController = window?.rootViewController as? UISplitViewController,
             let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
-            let masterViewController = leftNavController.topViewController as? RootTableViewController,
+            let masterViewController = leftNavController.topViewController as? MasterContainerViewController,
             let rightNavController = splitViewController.viewControllers.last as? UINavigationController,
             let detailViewController = rightNavController.topViewController as? DetailViewController
             else { fatalError("The splitViewController failed to build itself.... Boom!") }

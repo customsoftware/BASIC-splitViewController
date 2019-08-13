@@ -18,25 +18,18 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: Responder {
     func stateChanged() {
-        defer {
-            navigationItem.title = getTitle(CoreServices.shared.activeDetail)
-        }
-        
-        guard let newState = CoreServices.shared.activeDetail else {
-            // There is no state so remove all sub-views
-            removeChildViewControllers()
-            return
-        }
-        
         removeChildViewControllers()
+        defer { navigationItem.title = getTitle(CoreServices.shared.activeDetail) }
+        guard let newState = CoreServices.shared.activeDetail else { return }
         
         let newVC = DetailFactory.build(for: newState)
         if let newView = newVC.view {
-            newVC.willMove(toParent: self)
-            addChild(newVC)
             view.addSubview(newView)
             setConstraints(for: newView)
         }
+        
+        newVC.willMove(toParent: self)
+        addChild(newVC)
     }
 }
 
@@ -53,7 +46,6 @@ fileprivate extension DetailViewController {
     
     func removeChildViewControllers() {
         children.forEach({
-            // This so you remove only the variable content
             guard $0 is DetailViewBase else { return }
             $0.willMove(toParent: nil)
             $0.view.removeFromSuperview()

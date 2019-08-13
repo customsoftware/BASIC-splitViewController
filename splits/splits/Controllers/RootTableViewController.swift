@@ -18,12 +18,12 @@ class RootTableViewController: UITableViewController {
     override func loadView() {
         super.loadView()
         registerTableViewCells()
-        setupDelegates()
+        setupDelegateAndDataSources()
     }
 }
 
 fileprivate extension RootTableViewController {
-    func setupDelegates() {
+    func setupDelegateAndDataSources() {
         splitViewController?.delegate = self
         masterEngine.showDelegate = self
         subEngine.showDelegate = self
@@ -43,25 +43,18 @@ fileprivate extension RootTableViewController {
     func setForMaster() {
         tableView.delegate = masterEngine
         tableView.dataSource = masterEngine
-        
-        UIView.animate(withDuration: 0.5) {
-            self.navigationItem.leftBarButtonItem = nil
-            self.navigationItem.title = "Master View"
-            self.view.layoutIfNeeded()
-            self.tableView.reloadData()
-        }
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.title = "Master View"
+        self.tableView.reloadData()
     }
     
     func setForSub() {
         tableView.delegate = subEngine
         tableView.dataSource = subEngine
-
-        UIView.animate(withDuration: 0.8) {
-            let back = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(self.revertToMaster))
-            self.navigationItem.leftBarButtonItem = back
-            self.navigationItem.title = "Sub View"
-            self.tableView.reloadData()
-        }
+        let back = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(self.revertToMaster))
+        self.navigationItem.leftBarButtonItem = back
+        self.navigationItem.title = "Sub View"
+        self.tableView.reloadData()
     }
 }
 

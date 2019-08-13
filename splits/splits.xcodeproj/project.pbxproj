@@ -122,6 +122,7 @@
 		90CF2B5F22FB02520069802F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				84D9F21E2301F0E200D9723D /* DetailFactory.swift */,
 				90CF2B6622FB03940069802F /* RootTableViewController.swift */,
 				90CF2B6822FB03CB0069802F /* DetailViewController.swift */,
 				90FA125222FDB74E00B0D5D7 /* TestWindows.swift */,
@@ -135,7 +136,6 @@
 			children = (
 				90CF2B6D22FB06230069802F /* ViewProtocols.swift */,
 				84D9F21C2301F07F00D9723D /* Enums.swift */,
-				84D9F21E2301F0E200D9723D /* DetailFactory.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		84D9F21D2301F07F00D9723D /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9F21C2301F07F00D9723D /* Enums.swift */; };
 		84D9F21F2301F0E200D9723D /* DetailFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9F21E2301F0E200D9723D /* DetailFactory.swift */; };
-		84D9F2212301F10400D9723D /* MasterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9F2202301F10400D9723D /* MasterEngine.swift */; };
-		84D9F2232301F12700D9723D /* SubEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9F2222301F12700D9723D /* SubEngine.swift */; };
 		904E67D522FF2040002442E8 /* TableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904E67D422FF2040002442E8 /* TableViewCells.swift */; };
 		904E67D922FF47C9002442E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 904E67D822FF47C9002442E8 /* Main.storyboard */; };
 		906D3CA92302F8C400CDEFA9 /* MasterContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906D3CA82302F8C400CDEFA9 /* MasterContainerViewController.swift */; };
@@ -40,8 +38,6 @@
 /* Begin PBXFileReference section */
 		84D9F21C2301F07F00D9723D /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		84D9F21E2301F0E200D9723D /* DetailFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFactory.swift; sourceTree = "<group>"; };
-		84D9F2202301F10400D9723D /* MasterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterEngine.swift; sourceTree = "<group>"; };
-		84D9F2222301F12700D9723D /* SubEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubEngine.swift; sourceTree = "<group>"; };
 		904E67D422FF2040002442E8 /* TableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCells.swift; sourceTree = "<group>"; };
 		904E67D822FF47C9002442E8 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		906D3CA82302F8C400CDEFA9 /* MasterContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterContainerViewController.swift; sourceTree = "<group>"; };
@@ -157,8 +153,6 @@
 		90CF2B7222FB0F290069802F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				84D9F2202301F10400D9723D /* MasterEngine.swift */,
-				84D9F2222301F12700D9723D /* SubEngine.swift */,
 				90CF2B7322FB0F440069802F /* CoreServices.swift */,
 			);
 			path = Managers;
@@ -267,9 +261,7 @@
 			files = (
 				90CF2B6922FB03CB0069802F /* DetailViewController.swift in Sources */,
 				90CF2B7422FB0F440069802F /* CoreServices.swift in Sources */,
-				84D9F2232301F12700D9723D /* SubEngine.swift in Sources */,
 				90CF2B6E22FB06230069802F /* ViewProtocols.swift in Sources */,
-				84D9F2212301F10400D9723D /* MasterEngine.swift in Sources */,
 				906D3CA92302F8C400CDEFA9 /* MasterContainerViewController.swift in Sources */,
 				90CF2B7122FB0EFE0069802F /* Models.swift in Sources */,
 				90CF2B4022FB01CB0069802F /* AppDelegate.swift in Sources */,

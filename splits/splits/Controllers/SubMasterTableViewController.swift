@@ -10,37 +10,41 @@ import UIKit
 
 class SubMasterTableViewController: UITableViewController {
     let cellID = CellIDs.DemoCellID.rawValue
-    let masterCellID = CellIDs.MasterCellID.rawValue
-    
-    let subEngine = SubTableViewEngine()
-    
-    override func loadView() {
+     override func loadView() {
         super.loadView()
         registerTableViewCells()
-        setupDelegateAndDataSources()
-    }
-}
-
-fileprivate extension SubMasterTableViewController {
-    func setupDelegateAndDataSources() {
-        subEngine.showDelegate = self
-        tableView.dataSource = subEngine
-        tableView.delegate = subEngine
     }
     
-    func registerTableViewCells() {
-        // Note you can add as many tableview cells as your different content vc's will use. This is the only place you need to load them since the tableviews referenced in the datasource classes will know what these are.
-        tableView.register(DemoSubCell.self, forCellReuseIdentifier: cellID)
+    
+    // Data Source
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return TestDetails.allCases.count
     }
-}
-
-extension SubMasterTableViewController: ShowAllDetails {
-    func showDetailView() {
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! DemoSubCell
+        cell.controllingEnum = TestDetails.allCases[indexPath.row]
+        return cell
+    }
+    
+    // Delegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let passedEnum = TestDetails.allCases[indexPath.row]
+        CoreServices.shared.setActiveDetail(passedEnum)
+        
         guard let detailVC = CoreServices.shared.detailView,
             let detailNav = detailVC.navigationController,
             let split = splitViewController else {
                 fatalError("This is an unacceptable state")
         }
         split.showDetailViewController(detailNav, sender: nil)
+    }
+}
+
+fileprivate extension SubMasterTableViewController {
+    
+    func registerTableViewCells() {
+        // Note you can add as many tableview cells as your different content vc's will use. This is the only place you need to load them since the tableviews referenced in the datasource classes will know what these are.
+        tableView.register(DemoSubCell.self, forCellReuseIdentifier: cellID)
     }
 }

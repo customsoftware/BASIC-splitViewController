@@ -9,28 +9,42 @@
 import UIKit
 
 class RootTableViewController: UITableViewController {
-    let cellID = CellIDs.DemoCellID.rawValue
-    let masterCellID = CellIDs.MasterCellID.rawValue
-    
-    let masterEngine = MasterTableViewEngine()
+    weak var showDelegate: ShowAllDetails?
+    let cellID = CellIDs.MasterCellID.rawValue
     
     override func loadView() {
         super.loadView()
         registerTableViewCells()
-        setupDelegateAndDataSources()
+    }
+    
+    // Data Source
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return MasterList.allCases.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! DemoMasterCell
+        cell.controllingEnum = MasterList.allCases[indexPath.row]
+        return cell
+    }
+    
+    // Delegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let passedEnum = TestDetails.allCases[indexPath.row]
+        switch passedEnum {
+        case .exampleOne, .exampleTwo:
+            CoreServices.shared.setActiveDetail(passedEnum)
+            showDetailView()
+        case .exampleThree:
+            CoreServices.shared.setCurrentMode(.detail)
+        }
     }
 }
 
 fileprivate extension RootTableViewController {
-    func setupDelegateAndDataSources() {
-        masterEngine.showDelegate = self
-        tableView.dataSource = masterEngine
-        tableView.delegate = masterEngine
-    }
-    
     func registerTableViewCells() {
         // Note you can add as many tableview cells as your different content vc's will use. This is the only place you need to load them since the tableviews referenced in the datasource classes will know what these are.
-        tableView.register(DemoMasterCell.self, forCellReuseIdentifier: masterCellID)
+        tableView.register(DemoMasterCell.self, forCellReuseIdentifier: cellID)
     }
 }
 

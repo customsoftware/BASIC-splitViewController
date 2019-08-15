@@ -12,55 +12,25 @@ class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     
-    @IBAction func showAlt(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "showAlt", sender: nil)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton
-        if let split = splitViewController {
-            let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-        }
+        CoreServices.shared.registerDelegate(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
-        super.viewWillAppear(animated)
+        defer { super.viewWillAppear(animated) }
+        guard let split = parent?.splitViewController else { return }
+        clearsSelectionOnViewWillAppear = split.isCollapsed
     }
 
     @objc
     func insertNewObject(_ sender: Any) {
         let newEvent = Event(timeStamp: Date())
         CoreServices.shared.addEvent(newEvent)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-    }
-
-    // MARK: - Segues
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let object = CoreServices.shared.eventList[indexPath.row]
-                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object.timeStamp
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
-            }
-        }
     }
 
     // MARK: - Table View
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CoreServices.shared.eventList.count
     }
@@ -73,6 +43,11 @@ class MasterViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let event = CoreServices.shared.eventList[indexPath.row]
+        CoreServices.shared.setActiveDetail(event)
+    }
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
@@ -86,7 +61,17 @@ class MasterViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-
-
 }
 
+extension MasterViewController: Responder {
+    func stateChanged() {
+        tableView.reloadData()
+        
+        guard let split = splitViewController,
+            let detail = CoreServices.shared.detailView,
+            let detailNav = detail.navigationController,
+            let _ = CoreServices.shared.activeEvent else { return }
+        
+        split.showDetailViewController(detailNav, sender: nil)
+    }
+}

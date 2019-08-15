@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8408A48B2305EA6E00A8C16A /* MasterContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8408A48A2305EA6E00A8C16A /* MasterContainerViewController.swift */; };
 		84D9F21D2301F07F00D9723D /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9F21C2301F07F00D9723D /* Enums.swift */; };
 		84D9F21F2301F0E200D9723D /* DetailFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9F21E2301F0E200D9723D /* DetailFactory.swift */; };
 		9017C26B2305B23900D35EDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017C26A2305B23900D35EDF /* AppDelegate.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8408A48A2305EA6E00A8C16A /* MasterContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterContainerViewController.swift; sourceTree = "<group>"; };
 		84D9F21C2301F07F00D9723D /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		84D9F21E2301F0E200D9723D /* DetailFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFactory.swift; sourceTree = "<group>"; };
 		9017C2682305B23900D35EDF /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +104,7 @@
 				9017C27C2305B26200D35EDF /* AltMaster.swift */,
 				9017C26C2305B23900D35EDF /* MasterViewController.swift */,
 				9017C26E2305B23900D35EDF /* DetailViewController.swift */,
+				8408A48A2305EA6E00A8C16A /* MasterContainerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				9017C26D2305B23900D35EDF /* MasterViewController.swift in Sources */,
 				9017C26B2305B23900D35EDF /* AppDelegate.swift in Sources */,
 				9017C2832305B48000D35EDF /* Model.swift in Sources */,
+				8408A48B2305EA6E00A8C16A /* MasterContainerViewController.swift in Sources */,
 				9017C27D2305B26200D35EDF /* AltMaster.swift in Sources */,
 				9017C2812305B43100D35EDF /* CoreServices.swift in Sources */,
 			);

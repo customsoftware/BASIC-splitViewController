@@ -14,7 +14,7 @@ class DetailViewController: UIViewController {
 
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = detailItem {
+        if let detail = CoreServices.shared.activeEvent?.timeStamp {
             if let label = detailDescriptionLabel {
                 label.text = detail.description
             }
@@ -27,11 +27,10 @@ class DetailViewController: UIViewController {
         configureView()
     }
 
-    var detailItem: Date? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
-    }
 }
 
+extension DetailViewController: Responder {
+    func stateChanged() {
+        configureView()
+    }
+}

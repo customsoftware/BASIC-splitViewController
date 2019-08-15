@@ -11,17 +11,6 @@ import UIKit
 class MasterContainerViewController: UIViewController {
     var lastMode: ListMode?
     
-    lazy var masterView: MasterViewController? = {
-        return storyboard?.instantiateViewController(withIdentifier: "master") as? MasterViewController
-    }()
-    
-    lazy var altMasterVC: AltMaster? = {
-        return storyboard?.instantiateViewController(withIdentifier: "sub") as? AltMaster
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 }
 
 @objc
@@ -43,7 +32,7 @@ fileprivate extension MasterContainerViewController {
 // MARK: - Child view management code
 fileprivate extension MasterContainerViewController {
     func setForMaster() {
-        guard let masterTable = masterView else { return }
+        guard let masterTable = MasterFactory.shared.getMasterView() as? MasterViewController else { return }
       
         navigationItem.title = "Master View"
         let jump = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showSubMaster))
@@ -58,7 +47,7 @@ fileprivate extension MasterContainerViewController {
     }
     
     func setForSub() {
-        guard let subTable = altMasterVC else { return }
+        guard let subTable = MasterFactory.shared.getMasterView() as? AltMaster else { return }
      
         navigationItem.title = "Sub View"
         navigationItem.rightBarButtonItem = nil
@@ -86,7 +75,16 @@ fileprivate extension MasterContainerViewController {
     }
     
     func hideOtherChild(_ mode: ListMode) {
-        var dissappearingView: UIView?
+        if let theViewToHide = getDissappearingView(mode) {
+            UIView.animate(withDuration: 0.5) {
+                theViewToHide.alpha = 0
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func getDissappearingView(for mode: ListMode) -> UIView? {
+        var retView: UIView?
         switch mode {
         case .detail:
             // If the master is there, hide it
@@ -96,13 +94,6 @@ fileprivate extension MasterContainerViewController {
             // If the sub is there, hide it
             guard let sub = getSub() else { return }
             dissappearingView = sub.view
-        }
-        
-        if let theViewToHide = dissappearingView {
-            UIView.animate(withDuration: 0.5) {
-                theViewToHide.alpha = 0
-                self.view.layoutIfNeeded()
-            }
         }
     }
     

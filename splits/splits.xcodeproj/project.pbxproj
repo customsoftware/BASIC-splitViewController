@@ -33,6 +33,7 @@
 		90CF2B6E22FB06230069802F /* ViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B6D22FB06230069802F /* ViewProtocols.swift */; };
 		90CF2B7122FB0EFE0069802F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B7022FB0EFE0069802F /* Models.swift */; };
 		90CF2B7422FB0F440069802F /* CoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CF2B7322FB0F440069802F /* CoreServices.swift */; };
+		90CFC6F1230616AB004662B6 /* MasterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CFC6F0230616AB004662B6 /* MasterFactory.swift */; };
 		90FA125322FDB74E00B0D5D7 /* TestWindows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FA125222FDB74E00B0D5D7 /* TestWindows.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		90CF2B6D22FB06230069802F /* ViewProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProtocols.swift; sourceTree = "<group>"; };
 		90CF2B7022FB0EFE0069802F /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		90CF2B7322FB0F440069802F /* CoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServices.swift; sourceTree = "<group>"; };
+		90CFC6F0230616AB004662B6 /* MasterFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterFactory.swift; sourceTree = "<group>"; };
 		90FA125222FDB74E00B0D5D7 /* TestWindows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestWindows.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,6 +122,7 @@
 				9017C2822305B48000D35EDF /* Model.swift */,
 				906196C5230607C700A5DE84 /* Protocols.swift */,
 				906196C7230607F400A5DE84 /* Enums.swift */,
+				90CFC6F0230616AB004662B6 /* MasterFactory.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				9017C26D2305B23900D35EDF /* MasterViewController.swift in Sources */,
 				9017C26B2305B23900D35EDF /* AppDelegate.swift in Sources */,
 				9017C2832305B48000D35EDF /* Model.swift in Sources */,
+				90CFC6F1230616AB004662B6 /* MasterFactory.swift in Sources */,
 				8408A48B2305EA6E00A8C16A /* MasterContainerViewController.swift in Sources */,
 				9017C27D2305B26200D35EDF /* AltMaster.swift in Sources */,
 				9017C2812305B43100D35EDF /* CoreServices.swift in Sources */,

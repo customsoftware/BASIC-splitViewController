@@ -11,6 +11,10 @@ import UIKit
 class MasterContainerViewController: UIViewController {
     var lastMode: ListMode?
     
+    lazy var masterView: MasterViewController? = {
+        return storyboard?.instantiateViewController(withIdentifier: "master") as? MasterViewController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         splitViewController?.delegate = self
@@ -39,7 +43,7 @@ fileprivate extension MasterContainerViewController {
         navigationItem.leftBarButtonItem = jump
         navigationItem.title = "Master View"
         
-        guard let masterTable = storyboard?.instantiateViewController(withIdentifier: "master") as? MasterViewController else { return }
+        guard let masterTable = masterView else { return }
         
         removeChildViewControllers()
         addNewViewController(masterTable)
@@ -49,10 +53,6 @@ fileprivate extension MasterContainerViewController {
         navigationItem.rightBarButtonItem = addButton
         
         lastMode = .master
-//        if let split = splitViewController {
-//            let controllers = split.viewControllers
-//            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-//        }
     }
     
     func setForSub() {

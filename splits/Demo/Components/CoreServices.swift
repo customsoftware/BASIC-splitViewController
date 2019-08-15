@@ -60,21 +60,3 @@ fileprivate extension CoreServices {
         activeEvent = nil
     }
 }
-
-protocol Responder: UIViewController {
-    func stateChanged()
-}
-
-protocol ShowAllDetails: UIViewController {
-    func showDetailView()
-}
-
-enum ListMode {
-    case master
-    case detail
-}
-
-enum CellIDs: String {
-    case DemoCellID
-    case MasterCellID
-}

@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         setUpSplitView()
@@ -31,6 +30,7 @@ fileprivate extension AppDelegate {
             let detailViewController = rightNavController.topViewController as? DetailViewController
             else { fatalError("The splitViewController failed to build itself.... Boom!") }
         
+        splitViewController.delegate = self
         splitViewController.preferredDisplayMode = .allVisible
         configureDetailViewLeftBarbutton(detailViewController, in: splitViewController)
         CoreServices.shared.rememberDetailViewController(detailViewController)
@@ -51,5 +51,14 @@ fileprivate extension AppDelegate {
         //  Now, update the state to get started with the app. If you don't do this, it will start in the master view when on an iPhone with compact horizontal display.
         CoreServices.shared.setActiveDetail(nil)
         CoreServices.shared.setCurrentMode(.master)
+    }
+}
+
+extension AppDelegate: UISplitViewControllerDelegate {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        
+        // Returning true prevents the default of showing the secondary
+        // view controller. The activeDetail property will be nil only if we're not showing content.
+        return CoreServices.shared.activeEvent == nil
     }
 }

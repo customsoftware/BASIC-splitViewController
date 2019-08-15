@@ -21,7 +21,6 @@ class MasterContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        splitViewController?.delegate = self
     }
 }
 
@@ -44,29 +43,27 @@ fileprivate extension MasterContainerViewController {
 // MARK: - Child view management code
 fileprivate extension MasterContainerViewController {
     func setForMaster() {
+        guard let masterTable = masterView else { return }
+      
+        navigationItem.title = "Master View"
         let jump = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showSubMaster))
         navigationItem.leftBarButtonItem = jump
-        navigationItem.title = "Master View"
-        
-        guard let masterTable = masterView else { return }
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
+        navigationItem.rightBarButtonItem = addButton
         
         removeChildViewControllers()
         addNewViewController(masterTable)
         showNewView(masterTable.view)
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton
-        
         lastMode = .master
     }
     
     func setForSub() {
+        guard let subTable = altMasterVC else { return }
+     
+        navigationItem.title = "Sub View"
         navigationItem.rightBarButtonItem = nil
         let back = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(revertToMaster))
         navigationItem.leftBarButtonItem = back
-        navigationItem.title = "Sub View"
-        
-        guard let subTable = altMasterVC else { return }
         
         removeChildViewControllers()
         addNewViewController(subTable)
@@ -182,14 +179,5 @@ extension MasterContainerViewController: Responder {
                 setForSub()
             }
         }
-    }
-}
-
-extension MasterContainerViewController: UISplitViewControllerDelegate {
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        
-        // Returning true prevents the default of showing the secondary
-        // view controller. The activeDetail property will be nil only if we're not showing content.
-        return CoreServices.shared.activeEvent == nil
     }
 }

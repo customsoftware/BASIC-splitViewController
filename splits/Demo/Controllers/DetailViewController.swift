@@ -11,14 +11,12 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
-
+    
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = CoreServices.shared.activeEvent?.timeStamp {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
-            }
-        }
+        guard let detail = CoreServices.shared.activeEvent?.timeStamp,
+            let label = detailDescriptionLabel else { return }
+        label.text = detail.description
     }
 
     override func viewDidLoad() {
@@ -26,7 +24,6 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         configureView()
     }
-
 }
 
 extension DetailViewController: Responder {

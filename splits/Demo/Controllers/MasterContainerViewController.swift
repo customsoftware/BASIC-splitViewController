@@ -25,7 +25,6 @@ class MasterContainerViewController: UIViewController {
     }
 }
 
-
 @objc
 fileprivate extension MasterContainerViewController {
     func revertToMaster() {
@@ -42,6 +41,7 @@ fileprivate extension MasterContainerViewController {
     }
 }
 
+// MARK: - Child view management code
 fileprivate extension MasterContainerViewController {
     func setForMaster() {
         let jump = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showSubMaster))
@@ -182,7 +182,6 @@ extension MasterContainerViewController: Responder {
                 setForSub()
             }
         }
-        lastMode = mode
     }
 }
 

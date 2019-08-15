@@ -169,15 +169,15 @@ fileprivate extension MasterContainerViewController {
 
 extension MasterContainerViewController: Responder {
     func stateChanged() {
-        guard let mode = CoreServices.shared.activeMode else { return }
-        if shouldUpdateMode(mode) {
-            hideOtherChild(mode)
-            switch mode {
-            case .master:
-                setForMaster()
-            case .detail:
-                setForSub()
-            }
+        guard let mode = CoreServices.shared.activeMode,
+            shouldUpdateMode(mode) else { return }
+        
+        hideOtherChild(mode)
+        switch mode {
+        case .master:
+            setForMaster()
+        case .detail:
+            setForSub()
         }
     }
 }

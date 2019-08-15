@@ -9,17 +9,15 @@
 import UIKit
 
 class MasterContainerViewController: UIViewController {
-
     var lastMode: ListMode?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         splitViewController?.delegate = self
-        
-        setForMaster()
     }
-    
+}
+
+fileprivate extension MasterContainerViewController {
     @objc
     func revertToMaster() {
         CoreServices.shared.setCurrentMode(.master)
@@ -30,15 +28,9 @@ class MasterContainerViewController: UIViewController {
         navigationItem.title = "Master View"
         
         guard let masterTable = storyboard?.instantiateViewController(withIdentifier: "master") as? RootTableViewController else { return }
-        if let newView = masterTable.view {
-            view.addSubview(newView)
-            setConstraints(for: newView)
-            newView.alpha = 0
-        }
         
-        masterTable.willMove(toParent: self)
-        addChild(masterTable)
-        masterTable.tableView.reloadData()
+        removeChildViewControllers()
+        addNewViewController(masterTable)
         showNewView(masterTable.view)
     }
     
@@ -48,16 +40,22 @@ class MasterContainerViewController: UIViewController {
         navigationItem.title = "Sub View"
         
         guard let subTable = storyboard?.instantiateViewController(withIdentifier: "sub") as? SubMasterTableViewController else { return }
-        if let newView = subTable.view {
+        
+        removeChildViewControllers()
+        addNewViewController(subTable)
+        showNewView(subTable.view)
+    }
+    
+    func addNewViewController(_ newVC: UITableViewController) {
+        if let newView = newVC.view {
             view.addSubview(newView)
             setConstraints(for: newView)
             newView.alpha = 0
         }
         
-        subTable.willMove(toParent: self)
-        addChild(subTable)
-        subTable.tableView.reloadData()
-        showNewView(subTable.view)
+        newVC.willMove(toParent: self)
+        addChild(newVC)
+        newVC.tableView.reloadData()
     }
     
     func hideOtherChild(_ mode: ListMode) {
@@ -107,24 +105,45 @@ class MasterContainerViewController: UIViewController {
         })
         return retValue
     }
+    
+    func removeChildViewControllers() {
+        children.forEach({
+            guard $0 is UITableViewController else { return }
+            $0.willMove(toParent: nil)
+            $0.view.removeFromSuperview()
+            $0.removeFromParent()
+        })
+        return
+    }
+    
+    // If you don't set constraints, when you load the child view controllers, they could show up anywhwere in the detail view. This forces them to be in the right place.
+    func setConstraints(for newView: UIView) {
+        newView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
+            newView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            newView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:0),
+            newView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0) ])
+    }
+    
+    func shouldUpdateMode(_ mode: ListMode) -> Bool {
+        var retValue = true
+        guard let lastMode = lastMode else { return retValue }
+        retValue = false
+        switch lastMode {
+        case .detail:
+            retValue = mode != .detail
+        case .master:
+            retValue = mode != .master
+        }
+        return retValue
+    }
 }
 
 extension MasterContainerViewController: Responder {
     func stateChanged() {
         guard let mode = CoreServices.shared.activeMode else { return }
-        var update = false
-        if lastMode == nil {
-            update = true
-        } else if let last = lastMode {
-            switch last {
-            case .detail:
-                update = mode != .detail
-            case .master:
-                update = mode != .master
-            }
-        }
-        
-        if update {
+        if shouldUpdateMode(mode) {
             hideOtherChild(mode)
             switch mode {
             case .master:
@@ -136,19 +155,6 @@ extension MasterContainerViewController: Responder {
         lastMode = mode
     }
 }
-
-fileprivate extension MasterContainerViewController {
-    // If you don't set constraints, when you load the child view controllers, they could show up anywhwere in the detail view. This forces them to be in the right place.
-    func setConstraints(for newView: UIView) {
-        newView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            newView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
-            newView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            newView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:0),
-            newView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0) ])
-    }
-}
-
 
 extension MasterContainerViewController: UISplitViewControllerDelegate {
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {

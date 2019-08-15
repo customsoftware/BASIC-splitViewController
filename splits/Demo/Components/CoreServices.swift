@@ -33,11 +33,13 @@ class CoreServices {
     
     func addEvent(_ event: Event) {
         eventList.append(event)
+        activeEvent = event
         notifyDelegates()
     }
     
     func removeEventAt(_ row: Int) {
         eventList.remove(at: row)
+        activeEvent = nil
         notifyDelegates()
     }
     

@@ -25,23 +25,24 @@ class MasterContainerViewController: UIViewController {
     }
 }
 
+
+@objc
 fileprivate extension MasterContainerViewController {
-    @objc
     func revertToMaster() {
         CoreServices.shared.setCurrentMode(.master)
     }
     
-    @objc
     func showSubMaster() {
         CoreServices.shared.setCurrentMode(.detail)
     }
-    
-    @objc
+
     func insertNewObject(_ sender: Any) {
-        guard let master = getMaster() else { return }
-        master.insertNewObject(sender)
+        let event = Event(timeStamp: Date())
+        CoreServices.shared.addEvent(event)
     }
-    
+}
+
+fileprivate extension MasterContainerViewController {
     func setForMaster() {
         let jump = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showSubMaster))
         navigationItem.leftBarButtonItem = jump

@@ -24,12 +24,6 @@ class MasterViewController: UITableViewController {
         clearsSelectionOnViewWillAppear = split.isCollapsed
     }
 
-    @objc
-    func insertNewObject(_ sender: Any) {
-        let newEvent = Event(timeStamp: Date())
-        CoreServices.shared.addEvent(newEvent)
-    }
-
     // MARK: - Table View
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CoreServices.shared.eventList.count
@@ -54,11 +48,12 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+        switch editingStyle {
+        case .delete:
             CoreServices.shared.removeEventAt(indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        case .insert, .none:()
+        @unknown default:
+            fatalError("Boom baby! - tableview")
         }
     }
 }

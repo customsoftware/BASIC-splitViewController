@@ -15,6 +15,10 @@ class MasterContainerViewController: UIViewController {
         return storyboard?.instantiateViewController(withIdentifier: "master") as? MasterViewController
     }()
     
+    lazy var altMasterVC: AltMaster? = {
+        return storyboard?.instantiateViewController(withIdentifier: "sub") as? AltMaster
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         splitViewController?.delegate = self
@@ -61,7 +65,7 @@ fileprivate extension MasterContainerViewController {
         navigationItem.leftBarButtonItem = back
         navigationItem.title = "Sub View"
         
-        guard let subTable = storyboard?.instantiateViewController(withIdentifier: "sub") as? AltMaster else { return }
+        guard let subTable = altMasterVC else { return }
         
         removeChildViewControllers()
         addNewViewController(subTable)

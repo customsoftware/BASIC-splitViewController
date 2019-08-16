@@ -32,7 +32,7 @@ fileprivate extension MasterContainerViewController {
 // MARK: - Child view management code
 fileprivate extension MasterContainerViewController {
     func setForMaster() {
-        guard let masterTable = MasterFactory.shared.getMasterView() as? MasterViewController else { return }
+        guard let masterTable = MasterFactory.shared.getMasterView(for: .master) as? MasterViewController else { return }
       
         navigationItem.title = "Master View"
         let jump = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showSubMaster))
@@ -47,7 +47,7 @@ fileprivate extension MasterContainerViewController {
     }
     
     func setForSub() {
-        guard let subTable = MasterFactory.shared.getMasterView() as? AltMaster else { return }
+        guard let subTable = MasterFactory.shared.getMasterView(for: .detail) as? AltMaster else { return }
      
         navigationItem.title = "Sub View"
         navigationItem.rightBarButtonItem = nil
@@ -75,7 +75,7 @@ fileprivate extension MasterContainerViewController {
     }
     
     func hideOtherChild(_ mode: ListMode) {
-        if let theViewToHide = getDissappearingView(mode) {
+        if let theViewToHide = getDissappearingView(for: mode) {
             UIView.animate(withDuration: 0.5) {
                 theViewToHide.alpha = 0
                 self.view.layoutIfNeeded()
@@ -88,13 +88,14 @@ fileprivate extension MasterContainerViewController {
         switch mode {
         case .detail:
             // If the master is there, hide it
-            guard let master = getMaster() else { return }
-            dissappearingView = master.view
+            guard let master = getMaster() else { return retView }
+            retView = master.view
         case .master:
             // If the sub is there, hide it
-            guard let sub = getSub() else { return }
-            dissappearingView = sub.view
+            guard let sub = getSub() else { return retView }
+            retView = sub.view
         }
+        return retView
     }
     
     func showNewView(_ view: UIView) {

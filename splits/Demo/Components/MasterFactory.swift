@@ -12,15 +12,18 @@ class MasterFactory {
     static let shared = MasterFactory()
     
     lazy var masterView: MasterViewController? = {
-        return storyboard?.instantiateViewController(withIdentifier: "master") as? MasterViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let master = storyboard.instantiateViewController(withIdentifier: "master") as? MasterViewController else { return nil }
+        return master
     }()
     
     lazy var altMasterVC: AltMaster? = {
-        return storyboard?.instantiateViewController(withIdentifier: "sub") as? AltMaster
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let sub = storyboard.instantiateViewController(withIdentifier: "sub") as? AltMaster else { return nil }
+        return sub
     }()
     
-    func getMasterView() -> UIViewController? {
-        guard let mode = CoreServices.shared.activeMode else { return nil }
+    func getMasterView(for mode: ListMode) -> UIViewController? {
         switch mode {
         case .detail:
             return altMasterVC
